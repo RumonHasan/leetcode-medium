@@ -23,4 +23,28 @@ const searchRange = (nums, target)=>{
     return targetFirst === -1 ? [-1, -1]: indexes
 }
 
-//console.log(searchRange([1,4], 4))
+
+
+//console.log(searchRange([1,4], 4));
+
+const wordBreak = (s, wordDict)=>{
+    return verifyBreak (s, wordDict, 0,[]);
+}
+
+function verifyBreak (word, dic, start,memo){
+    console.log(start);
+    if(start === word.length) return true;
+    console.log(memo);
+    if(memo[start] !== undefined) return memo[start];
+
+    for(let end = start + 1; end <= word.length; end++){
+        let wildGuess = word.substring(start, end);
+
+        if(dic.includes(wildGuess) && verifyBreak(word, dic, end, memo)){
+            return memo[start] = true;
+        }
+    }
+    return memo[start] = false;
+}
+
+console.log(wordBreak("leetcode", ['leet', 'code']))
