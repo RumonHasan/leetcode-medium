@@ -30,16 +30,13 @@ const searchRange = (nums, target)=>{
 const wordBreak = (s, wordDict)=>{
     return verifyBreak (s, wordDict, 0,[]);
 }
-
+// using recursion to create subsections and check whether each segment is available or not
 function verifyBreak (word, dic, start,memo){
-    console.log(start);
     if(start === word.length) return true;
-    console.log(memo);
     if(memo[start] !== undefined) return memo[start];
 
     for(let end = start + 1; end <= word.length; end++){
         let wildGuess = word.substring(start, end);
-
         if(dic.includes(wildGuess) && verifyBreak(word, dic, end, memo)){
             return memo[start] = true;
         }
@@ -47,4 +44,46 @@ function verifyBreak (word, dic, start,memo){
     return memo[start] = false;
 }
 
-console.log(wordBreak("leetcode", ['leet', 'code']))
+//console.log(wordBreak("letscheckthis", ['leet', 'code']))
+
+
+// palindromic partitiion
+const isPalindrome = (s, start, end)=>{
+    while(start < end){
+        if(s[start] !== s[end]) return false;
+        start++;
+        end--;
+    }
+    return true;
+}
+
+
+// partition palindrome using dfs
+const partition = (s)=>{
+   const partitionArray = [];
+
+   // dfs recursive helper
+   const dfs = (index, s, slate) => {
+    // base case
+    if(index === s.length){
+        partitionArray.push(slate.slice());
+        return;
+    }
+    // dfs recursive case
+    for(let j = index; j < s.length; j++){
+        if(isPalindrome(s, index, j)){
+            console.log(index, j);
+            let substring = s.slice(index, j + 1);
+            console.log(substring);
+            slate.push(substring);
+            dfs(j + 1, s, slate);
+            console.log(slate)
+            slate.pop();
+        }
+    }
+   }
+   dfs(0, s, []);
+   return partitionArray;
+}
+
+console.log(partition("aab"))
