@@ -61,7 +61,6 @@ const isPalindrome = (s, start, end)=>{
 // partition palindrome using dfs
 const partition = (s)=>{
    const partitionArray = [];
-
    // dfs recursive helper
    const dfs = (index, s, slate) => {
     // base case
@@ -77,8 +76,8 @@ const partition = (s)=>{
             console.log(substring);
             slate.push(substring);
             dfs(j + 1, s, slate);
-            console.log(slate)
-            slate.pop();
+            console.log(slate);
+            slate.pop()
         }
     }
    }
@@ -86,4 +85,52 @@ const partition = (s)=>{
    return partitionArray;
 }
 
-console.log(partition("aab"))
+//console.log(partition("aab"))
+
+const combinationSum = (candidates, target)=>{
+    console.log(candidates);
+    let finalArray = [];
+    const sortedCandidates = candidates.sort((a, b)=> a - b);
+
+    const backtracking = (index, target, stack)=>{
+        if(index === candidates.length){
+            finalArray.push(stack.slice());
+        }
+        for(let j = index; j < sortedCandidates.length; j++ ){
+            let subArray = sortedCandidates.slice(index, j + 1);
+            console.log(subArray);
+        }
+    }
+
+    backtracking(0, target, []);
+
+    return finalArray;
+}
+//console.log(combinationSum([2,3,6,7], 7));
+
+
+
+// leetcode 151: Reverse Words in a string
+
+const reverseWords = (s)=>{
+    const sArray = s.split(' ');
+    let finalString = '';
+    let tempStack = [];
+    let revStack = [];
+
+    for(let i = 0; i < sArray.length; i++){
+        if(sArray[i] !== ''){
+            tempStack.push(sArray[i]);
+        }
+    }
+    for(let i = tempStack.length - 1; i >= 0; i--){
+        revStack.push(tempStack[i]);
+    }
+    for(let i = 0; i < revStack.length; i++){
+        finalString += revStack[i] + ' ';
+    }
+    return finalString.slice(0, -1);
+
+}
+
+//console.log(reverseWords("a good   example"))
