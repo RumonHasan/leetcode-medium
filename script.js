@@ -133,4 +133,20 @@ const reverseWords = (s)=>{
 
 }
 
-//console.log(reverseWords("a good   example"))
+//console.log(reverseWords("a good   example"));
+
+// return the single number that has only like one occurence
+const singleNumberII = (nums)=>{
+    console.log(nums);
+    let hash = {};
+    for(let i = 0; i < nums.length; i++){
+        hash[nums[i]] ? hash[nums[i]]++ : hash[nums[i]] = 1;
+    }
+    for(const [key, value] of Object.entries(hash)){
+        if(value === 1){
+            return parseFloat(key);
+        }
+    }
+};
+
+console.log(singleNumberII([2,2,3,2]))
