@@ -149,4 +149,22 @@ const singleNumberII = (nums)=>{
     }
 };
 
-console.log(singleNumberII([2,2,3,2]))
+//console.log(singleNumberII([2,2,3,2]));
+
+const majorityElementII = (nums)=>{
+    const occurenceLimit = Math.floor(nums.length / 3);
+    let finalArray = [];
+
+    let hash = {};
+    for(let i = 0; i < nums.length; i++){
+        hash[nums[i]] ? hash[nums[i]]++ : hash[nums[i]] = 1;
+    }
+    for(const[key, value] of Object.entries(hash)){
+        if(value > occurenceLimit){
+            finalArray.push(parseFloat(key));
+        }
+    }
+    return finalArray;
+}
+
+//console.log(majorityElementII([3,2,3]))
