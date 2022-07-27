@@ -168,3 +168,45 @@ const majorityElementII = (nums)=>{
 }
 
 //console.log(majorityElementII([3,2,3]))
+
+
+
+// leetcode 390 elimination game
+const lastRemaining = (n)=>{
+    let initialArray = [];
+    for(let i = 1; i <= n; i++){
+        initialArray.push(i);
+    }
+    console.log(initialArray);
+}
+
+//console.log(lastRemaining(9))
+
+
+
+// find peak elements where it is strictly greater than its neighbors
+
+const findPeakElement = (nums)=>{
+    const dummyElement = -Infinity;
+    let maxElement = -Infinity;
+    let index = 0;
+
+    for(let i = 0; i < nums.length; i++){
+        const currentElement = nums[i];
+        const prevElement = i === 0 ? dummyElement : nums[i - 1];
+        const nextElement = i === nums.length - 1 ? dummyElement : nums[i + 1];
+
+        // checking peak element
+        if(currentElement > prevElement && currentElement > nextElement){
+            maxElement = Math.max(currentElement, maxElement);
+            index = nums.indexOf(maxElement);
+        }
+    }
+    return index;
+
+}
+
+console.log(findPeakElement(
+    [-2147483648,-2147483647]));
+
+
