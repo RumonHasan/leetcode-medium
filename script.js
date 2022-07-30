@@ -206,7 +206,56 @@ const findPeakElement = (nums)=>{
 
 }
 
-console.log(findPeakElement(
-    [-2147483648,-2147483647]));
+//console.log(findPeakElement(
+   // [-2147483648,-2147483647]));
+
+
+// need to find the longest consequtive elements length
+const longestConsequtive = (nums)=>{
+    if(nums.length === 1){
+        return 1;
+    }
+    if(nums.length === 0 || undefined){
+        return 0;
+    }
+    let index = 0;
+    let sortedNums = nums.sort((a, b)=> a - b);
+    const difference = 1;
+    let conArray = [];
+    let secondIndex = 1;
+    let maxLength = -Infinity;
+
+    while(index < sortedNums.length){
+        if(sortedNums[secondIndex] - sortedNums[index] === difference){
+            conArray.push(sortedNums[index]);
+            conArray.push(sortedNums[secondIndex]);
+        }
+        secondIndex++;
+        index++;
+    }
+    let filteredArray = Array.from(new Set([...conArray]));
+    // splitting for the longest
+    let segment = [];
+    let collection = [];
+    for(let i = 0; i < filteredArray.length; i++){
+        if((filteredArray[i + 1] - filteredArray[i]) === difference){
+            segment.push(filteredArray[i]);
+            segment.push(filteredArray[i + 1]);
+        }else{
+            collection.push(segment);
+            segment = [];
+        }
+    }
+    // getting the largest collection from the sets
+    for(let i = 0; i < collection.length; i++){
+        let array = Array.from(new Set([...collection[i]]));
+        maxLength = Math.max(maxLength, array.length);
+    }
+    return maxLength === -Infinity ? 1: maxLength;
+}
+
+//console.log(longestConsequtive(
+  //  [9,1,4,7,3,-1,0,5,8,-1,6]))
+
 
 
