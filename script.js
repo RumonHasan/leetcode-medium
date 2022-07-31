@@ -224,7 +224,6 @@ const longestConsequtive = (nums)=>{
     let conArray = [];
     let secondIndex = 1;
     let maxLength = -Infinity;
-
     while(index < sortedNums.length){
         if(sortedNums[secondIndex] - sortedNums[index] === difference){
             conArray.push(sortedNums[index]);
@@ -256,6 +255,24 @@ const longestConsequtive = (nums)=>{
 
 //console.log(longestConsequtive(
   //  [9,1,4,7,3,-1,0,5,8,-1,6]))
+
+
+
+// product of self
+
+const findDuplicate = (nums)=>{
+   let hash = {};
+   for(let index in nums){
+        hash[nums[index]] ? hash[nums[index]]++ : hash[nums[index]] = 1;
+   }
+   for(const [key, value] of Object.entries(hash)){
+    if(value >= 2){
+        return parseInt(key);
+    }
+   }
+}
+
+//console.log(findDuplicate([2,2,2,2,2]))
 
 
 
