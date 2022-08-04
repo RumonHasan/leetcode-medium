@@ -275,4 +275,29 @@ const findDuplicate = (nums)=>{
 //console.log(findDuplicate([2,2,2,2,2]))
 
 
+const singleNumber = (nums)=>{
+    console.log(nums);
+    let array = [];
+    let hash = {};
+
+    for(let i = 0; i < nums.length; i++){
+        if(hash[nums[i]]){
+            hash[nums[i]]++;
+        }else{
+            hash[nums[i]] = 1;
+        }
+    }
+    for(const [key, value] of Object.entries(hash)){
+        if(value === 1){
+            array.push(parseInt(key));
+        }
+    }
+    return array;
+}
+
+//console.log(singleNumber([1,2,1,3,2,5]))
+
+
+
+
 
