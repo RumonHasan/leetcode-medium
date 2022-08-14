@@ -295,7 +295,33 @@ const singleNumber = (nums)=>{
     return array;
 }
 
-//console.log(singleNumber([1,2,1,3,2,5]))
+//console.log(singleNumber([1,2,1,3,2,5]));
+
+
+// find final triangular sum of the array 
+
+const triangleSum = (nums)=>{
+    if(nums.length === 1){
+        return nums[0];
+    }
+    let array = [];
+    for(let i = 0; i < nums.length; i++){
+        let triangleSumVal = 0;
+        if(nums[i + 1] === undefined){
+            break;
+        }
+        triangleSumVal = (nums[i] + nums[i + 1]) % 10;
+        array.push(triangleSumVal);
+    }
+    if(array.length !== 1){
+        return triangleSum(array);
+    }else{
+        return array[0];
+    }
+}
+
+//console.log(triangleSum([1,2,3,4,5]))
+
 
 
 
