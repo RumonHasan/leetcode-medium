@@ -320,7 +320,35 @@ const triangleSum = (nums)=>{
     }
 }
 
-//console.log(triangleSum([1,2,3,4,5]))
+//console.log(triangleSum([1,2,3,4,5]));
+
+
+// medium water
+
+const maxArea = (height)=>{
+    console.log(height);
+
+    let index = 0;
+    let secondIndex = height.length - 1;
+    let maxAmount = 0;
+    let waterStore = -Infinity;
+    
+    while(index < secondIndex){
+        if(height[index] < height[secondIndex]){
+            maxAmount = height[index] * (secondIndex - index);
+            index++;
+        }else{
+            maxAmount = height[secondIndex] * (secondIndex - index);
+            secondIndex--;
+        } 
+       waterStore = Math.max(maxAmount, waterStore);
+    }
+    return waterStore;
+
+}
+
+//console.log(maxArea([1,8,6,2,5,4,8,3,7]))
+
 
 
 
