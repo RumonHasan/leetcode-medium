@@ -327,7 +327,6 @@ const triangleSum = (nums)=>{
 
 const maxArea = (height)=>{
     console.log(height);
-
     let index = 0;
     let secondIndex = height.length - 1;
     let maxAmount = 0;
@@ -347,7 +346,43 @@ const maxArea = (height)=>{
 
 }
 
-//console.log(maxArea([1,8,6,2,5,4,8,3,7]))
+//console.log(maxArea([1,8,6,2,5,4,8,3,7]));
+
+
+// checking the total number of collisions leetcode 2211
+const countCollisions = (directions)=>{
+    // hint code from online... no personal solutions found yet
+    const directionsArray = directions.split('');
+    let numberOfCollisions = 0;
+    console.log(directionsArray);
+    // right side
+    let start;
+    for(start = 0; start < directionsArray.length; start++){
+       if(directionsArray[start] !== 'L'){
+        break;
+       }
+    }
+    console.log(start);
+    // left side 
+    let end;
+	for (end = directions.length - 1; end >= 0; end--) {
+		if (directions[end] !== 'R') {
+			break;
+		}
+	}
+
+    // check collisions
+	for (let i = start; i <= end; i++) {
+		if (directions[i] !== 'S') {
+			numberOfCollisions++;
+		}
+	}
+    return numberOfCollisions;
+}
+
+//console.log(countCollisions("LLRSLL"))
+
+
 
 
 
