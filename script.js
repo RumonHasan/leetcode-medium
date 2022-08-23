@@ -370,7 +370,6 @@ const countCollisions = (directions)=>{
 			break;
 		}
 	}
-
     // check collisions
 	for (let i = start; i <= end; i++) {
 		if (directions[i] !== 'S') {
@@ -380,7 +379,63 @@ const countCollisions = (directions)=>{
     return numberOfCollisions;
 }
 
-//console.log(countCollisions("LLRSLL"))
+//console.log(countCollisions("LLRSLL"));
+
+
+// find 
+const numberOfArithmeticSlices = (nums)=>{
+    console.log('array',nums);
+    // current difference
+    let difference = 0;
+    let count = 0;// elements with curr difference
+    let total = 0;// subarray count;
+    for(let i = 0; i < nums.length; i++){
+        const num = nums[i];
+        // prev number
+        const prev = nums[i - 1] === undefined ? -Infinity : nums[i - 1];
+
+        // current diff
+        const currentDiff = Math.abs(num - prev);
+
+        if(currentDiff === difference){
+            console.log(num, prev);
+            count += 1;
+            console.log(count);
+            total += count - 2;
+        }else{
+            difference = currentDiff;
+            count = 2;
+        }
+
+    }
+    //console.log('total', total);
+}
+
+//console.log(numberOfArithmeticSlices([1,2,3,4,5,7]));
+
+
+// finding the pivot and creating the array
+const pivotArray = (nums, pivot)=>{
+    console.log(nums, pivot);
+    let lower = [];
+    let upper = [];
+    let same = [];
+
+    for(let i = 0; i < nums.length; i++){
+        if(nums[i] < pivot){
+            lower.push(nums[i]);
+        }else if(nums[i] > pivot){
+            upper.push(nums[i]);
+        }else{
+            same.push(nums[i]);
+        }
+    }
+    return [...lower, ...same, ...upper];
+}
+
+//console.log(pivotArray([9,12,5,10,14,3,10],10))
+
+
 
 
 
