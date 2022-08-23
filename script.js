@@ -433,7 +433,47 @@ const pivotArray = (nums, pivot)=>{
     return [...lower, ...same, ...upper];
 }
 
-//console.log(pivotArray([9,12,5,10,14,3,10],10))
+//console.log(pivotArray([9,12,5,10,14,3,10],10));
+
+
+// minimum number of steps to make anagrams
+
+const minSteps = (s, t)=>{
+    let sHash = {};
+    let tHash = {};
+    let minSteps = 0;
+    for(let i = 0; i < s.length; i++){
+        sHash[s[i]] ? sHash[s[i]]++ : sHash[s[i]] = 1;
+    }
+    for(let i = 0; i < t.length; i++){
+        tHash[t[i]] ? tHash[t[i]]++ : tHash[t[i]] = 1;
+    }
+    
+    // for the letters that are not present and double
+    for(let i = 0; i < s.length; i++){
+        if(tHash[s[i]]){
+            tHash[s[i]]--;
+        }
+    }
+    for(let i = 0; i < t.length; i++){
+        if(sHash[t[i]]){
+            sHash[t[i]]--;
+        }
+    }
+    for(let [_, value] of Object.entries(sHash)){
+        if(value !== 0){
+            minSteps += value;
+        }
+    }
+    for(let [_, value] of Object.entries(tHash)){
+        if(value !== 0){
+            minSteps += value;
+        }
+    }
+    return minSteps;
+}
+
+//console.log(minSteps("leetcode","coats"))
 
 
 
