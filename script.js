@@ -473,7 +473,75 @@ const minSteps = (s, t)=>{
     return minSteps;
 }
 
-//console.log(minSteps("leetcode","coats"))
+//console.log(minSteps("leetcode","coats"));
+
+// to be continued
+const spiralOrder = (matrix)=>{
+    console.log(matrix);
+    // spiral parts
+   let spiralParts = [];
+  
+   // corners
+   let rowFirst = 0;
+   let lastRow = matrix.length - 1;
+   let colFirst = 0;
+   let lastCol = matrix[0].length - 1;
+
+   while(rowFirst <= lastRow && colFirst <= lastCol){
+        // first row
+        for(let i = colFirst; i <= lastCol; i++){
+            spiralParts.push(matrix[rowFirst][i]);
+        }
+        rowFirst++;
+        // first col 
+        for(let i = rowFirst; i <= lastRow; i++){
+            console.log(rowFirst);
+            spiralParts.push(matrix[i][lastCol]);
+        }
+        lastCol--;
+        for(let i = lastCol; i >= colFirst; i--){
+            spiralParts.push(matrix[lastRow][i]);
+        }
+        lastRow--;
+        for(let i = lastRow; i >= rowFirst; i--){
+            spiralParts.push(matrix[i][colFirst]);
+        } ;
+        colFirst++;
+   }
+
+   return spiralParts;
+}
+
+//console.log(spiralOrder([[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,16]]));
+
+
+// 0 - red, 1 - white, 2 - blue
+
+const sortColors = (nums)=>{
+    let hash = {};
+    let finalStack = [];
+    for(let index in nums){
+        hash[nums[index]] ? hash[nums[index]]++ : hash[nums[index]] = 1;
+    }
+    const fillArray = (key,value)=>{
+        let counter = 0;
+        while(counter !== value){
+            finalStack.push(parseInt(key));
+            counter++;
+        }
+    }
+    for(const [key, value] of Object.entries(hash)){
+        fillArray(key, value);
+    }
+    for(let i = 0; i < nums.length; i++){
+        nums[i] = finalStack[i];
+    }
+    return nums;
+}
+
+//console.log(sortColors([2,0,2,1,1,0]))
+
+
 
 
 
