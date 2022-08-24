@@ -539,7 +539,30 @@ const sortColors = (nums)=>{
     return nums;
 }
 
-//console.log(sortColors([2,0,2,1,1,0]))
+//console.log(sortColors([2,0,2,1,1,0]));
+
+
+const groupAnagrams = (strs)=>{
+    let groups = [];
+    let wordMap = new Map();
+    
+    for(let i = 0; i < strs.length; i++){
+        let word = strs[i].split('').sort().join('');
+        // remember the map has key and value pairs and a map cannot contain duplicate keys
+        if(!wordMap.has(word)){
+            wordMap.set(word, [strs[i]]);
+        }else{
+            wordMap.get(word).push(strs[i]);
+        }
+    }
+    // iterating through map in js to find the elements
+    wordMap.forEach((key, value)=>{
+        groups.push(key);
+    })
+
+    return groups;
+}
+//console.log(groupAnagrams(["eat","tea","tan","ate","nat","bat"]))
 
 
 
