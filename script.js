@@ -565,6 +565,31 @@ const groupAnagrams = (strs)=>{
 //console.log(groupAnagrams(["eat","tea","tan","ate","nat","bat"]))
 
 
+// find an array of duplicates
+const findDuplicates = (nums)=>{
+    let array = nums.sort((a, b)=> a - b);
+    let finalNums = [];
+    let hash = {};
+    for(let index in nums){
+        if(hash[nums[index]]){
+            hash[nums[index]]++;
+        }else{
+            hash[nums[index]] = 1;
+        }
+    }
+    for(const [key, value] of Object.entries(hash)){
+        if(value === 2){
+            finalNums.push(parseInt(key));
+        }
+    }
+    return finalNums;
+}
+
+//console.log(findDuplicates([4,3,2,7,8,2,3,1]))
+
+
+
+
 
 
 
