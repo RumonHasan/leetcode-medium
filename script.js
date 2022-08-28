@@ -610,6 +610,8 @@ const findSubsequences = (nums)=>{
 
 // returning the longest subarray mountain
 
+
+// important of two pass solutions
 const longestMountain = (arr)=>{
     // edge case
     if(arr.length < 3){
@@ -620,7 +622,6 @@ const longestMountain = (arr)=>{
     let index = 0;
     let pointy = false;
     let floor = false;
-
     while(index < arr.length){
         let count = 1; // starting from 1 cuz of two number comparison
         // checking for increasing peak starting point
@@ -637,11 +638,7 @@ const longestMountain = (arr)=>{
                 count++;
                 floor = true;
             }
-            // checking for next increase
-            if(count > 2 && pointy && floor){
-                maxLen = Math.max(maxLen, count);
-            }
-            // resetting the vals for next mountain and peak
+            count > 2 && pointy && floor ? maxLen = Math.max(maxLen, count) : undefined
             pointy = false;
             floor = false;
         }else{
@@ -653,7 +650,7 @@ const longestMountain = (arr)=>{
 }
 
 //console.log(longestMountain(
-  //  [875,884,239,731,723,685]))
+    //[875,884,239,731,723,685]))
 
 
 
