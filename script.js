@@ -588,6 +588,73 @@ const findDuplicates = (nums)=>{
 //console.log(findDuplicates([4,3,2,7,8,2,3,1]))
 
 
+// increasing subsequence 
+
+const findSubsequences = (nums)=>{
+    console.log(nums);
+    const stack = [];
+
+    for(let i = 0; i < nums.length; i++){
+        for(let j = 1; j < nums.length; j++){
+            if(nums[i] < nums[j] || nums[i] === nums[j]){
+                const array = [nums[i], nums[j]];
+                console.log(array);
+            }
+        }
+    }
+
+    return stack;
+}
+
+//console.log(findSubsequences([4,6,7,7]));
+
+// returning the longest subarray mountain
+
+const longestMountain = (arr)=>{
+    // edge case
+    if(arr.length < 3){
+        return 0;
+    }
+    // variables
+    let maxLen = 0;
+    let index = 0;
+    let pointy = false;
+    let floor = false;
+
+    while(index < arr.length){
+        let count = 1; // starting from 1 cuz of two number comparison
+        // checking for increasing peak starting point
+        if(arr[index] < arr[index + 1]){
+            // mountain increase check
+            while(index < arr.length - 1 && arr[index] < arr[index + 1]){
+                index++;
+                count++;
+                pointy = true;
+            }
+            //mountain drop check
+            while(index < arr.length - 1 && arr[index] > arr[index + 1]){
+                index++;
+                count++;
+                floor = true;
+            }
+            // checking for next increase
+            if(count > 2 && pointy && floor){
+                maxLen = Math.max(maxLen, count);
+            }
+            // resetting the vals for next mountain and peak
+            pointy = false;
+            floor = false;
+        }else{
+            index++; // iteration for skipping the initial drops till we find the first mountain
+            // index from the else statement cuz we want to increment till we find next peak
+        }
+    }
+    return maxLen;
+}
+
+//console.log(longestMountain(
+  //  [875,884,239,731,723,685]))
+
 
 
 
