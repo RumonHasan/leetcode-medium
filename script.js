@@ -696,19 +696,14 @@ const numberOfSubarrays = (nums, k)=>{
     let subArrayCount = 0;
 
     for(let i = 0; i < newArray.length; i++){
-        if(nums[i] % 2 === 0){
-           newArray[i] = 0;
-        }else{
-            newArray[i] = 1;
-        }
+        nums[i] % 2=== 0 ? newArray[i] = 0 : newArray[i] = 1;
     }
-
     // looking for subarrays with atleast k using two pointer approach
     let secondIndex = 0;
     for(let i = 0; i < newArray.length ; i++){
         if(newArray[i] === 1){
             k--;
-            count = 0
+            count = 0;
         }
         while(k === 0){
             k += newArray[secondIndex];
@@ -717,12 +712,44 @@ const numberOfSubarrays = (nums, k)=>{
         }
         subArrayCount += count
     }
-
     return subArrayCount;
 
 }
 
-console.log(numberOfSubarrays([2,2,2,1,2,2,1,2,2,2], 2))
+//console.log(numberOfSubarrays([2,2,2,1,2,2,1,2,1,2], 2));
+
+
+const numRescueBoats = (people, limit)=>{
+    let sortedPeople = people.sort((a, b)=> b - a);
+    let boatCounter = 0;
+    // two prong approach from both ends
+    let index = 0;
+    let secondIndex = sortedPeople.length;
+    while(index < secondIndex){
+        if(sortedPeople[index] === limit){
+            boatCounter++;
+            index++;
+        }else{
+            if(sortedPeople[index] < limit){
+                const weightCheck = parseInt(sortedPeople[index] + sortedPeople[secondIndex - 1]);
+                if(weightCheck === limit || weightCheck < limit){
+                    boatCounter++;
+                    index++;
+                    secondIndex--;
+                }else{
+                    boatCounter++;
+                    index++;
+                }
+            }
+        }
+    }
+    return boatCounter;
+    
+}
+
+console.log(numRescueBoats(
+    [3,2,2,1]
+    , 3))
 
 
 
