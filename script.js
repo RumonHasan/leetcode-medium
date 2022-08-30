@@ -648,9 +648,89 @@ const longestMountain = (arr)=>{
     }
     return maxLen;
 }
-
 //console.log(longestMountain(
-    //[875,884,239,731,723,685]))
+    //[875,884,239,731,723,685]));
+
+
+
+
+// stone game
+
+const stoneGame = (piles)=>{
+    let newPiles = piles.sort((a, b)=> a - b);
+    let playerCheck = true;
+    // players
+    let aliceSum = 0;
+    let bobSum = 0;
+    let aliceTurns = newPiles.length / 2;
+    let bobTurns = newPiles.length / 2;
+
+    for(let i = newPiles.length - 1; i >= 0; i--){
+        if(playerCheck && aliceTurns !== 0){
+            aliceSum += newPiles[i]
+            aliceTurns--;
+        }
+        if(playerCheck === false && bobTurns !== 0){
+            bobSum += newPiles[i]
+            bobTurns--;
+        }
+        playerCheck = !playerCheck;
+    }
+    if(aliceSum > bobSum){
+        return true;
+    }else{
+        return false;
+    }
+    
+    
+}
+
+//console.log(stoneGame([5,3,4,5]));
+
+
+// number of subarrays 
+
+const numberOfSubarrays = (nums, k)=>{
+    let newArray = new Array(nums.length).fill('');
+    let count = 0;
+    let subArrayCount = 0;
+
+    for(let i = 0; i < newArray.length; i++){
+        if(nums[i] % 2 === 0){
+           newArray[i] = 0;
+        }else{
+            newArray[i] = 1;
+        }
+    }
+
+    // looking for subarrays with atleast k using two pointer approach
+    let secondIndex = 0;
+    for(let i = 0; i < newArray.length ; i++){
+        if(newArray[i] === 1){
+            k--;
+            count = 0
+        }
+        while(k === 0){
+            k += newArray[secondIndex];
+            secondIndex++;
+            count++;
+        }
+        subArrayCount += count
+    }
+
+    return subArrayCount;
+
+}
+
+console.log(numberOfSubarrays([2,2,2,1,2,2,1,2,2,2], 2))
+
+
+
+
+
+
+
+
 
 
 
