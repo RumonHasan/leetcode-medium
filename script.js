@@ -773,6 +773,67 @@ const numTeams = (rating)=>{
 
 //console.log(numTeams([2,5,3,4,1]));
 
+// first approach nested
+var zeroFilledSubarray = function(nums) {
+    let result = 0;
+    let index = 0;
+    let len  = nums.length;
+    let zeroCheck = false;
+    let count = 0;
+    let array = [];
+
+    // scanning for zero subarrays;
+    while(index < len){ 
+        // using two pass system for iteration
+        if(nums[index] === 0){
+            let tempArray = [];
+            while(index < len && nums[index] === 0){
+                index++;
+                count++;
+                tempArray.push(count)
+                zeroCheck = true;
+            }
+            array.push(tempArray);
+            tempArray = [];
+            count = 0;
+            zeroCheck = false;
+        }else{
+            index++
+        }
+    }
+    for(let i = 0; i < array.length; i++){
+        const sum = array[i].reduce((a, b)=> a + b);
+        result += sum;
+    }
+    return result;
+};
+
+// second approach single O(n);
+const zeroFilledSubarrays = (nums)=>{
+    let result = 0;
+    let index = 0;
+    let len  = nums.length;
+
+    // scanning for zero subarrays;
+    while(index < len){ 
+        // using single pass
+        if(nums[index] === 0){
+            let tempIndex = index;
+            while(index < len && nums[tempIndex] === 0){
+                result += (tempIndex - index + 1);
+                tempIndex++;
+            }
+            index = tempIndex;
+        }else{
+            index++
+        }
+    }
+    return result;
+}
+
+//console.log(zeroFilledSubarrays([0,0,0,2,0,0]))
+
+
 
 
 
