@@ -747,9 +747,35 @@ const numRescueBoats = (people, limit)=>{
     
 }
 
-console.log(numRescueBoats(
-    [3,2,2,1]
-    , 3))
+//console.log(numRescueBoats(
+  //  [3,2,2,1]
+    //, 3))
+
+
+
+const numTeams = (rating)=>{
+    let counter = 0;
+    // brute force approach
+    for(let i = 0; i < rating.length ; i++){
+        for(let j = i; j < rating.length ; j++){
+            for(let k = j; k < rating.length; k++){
+                if(rating[i] > rating[j] && rating[j] > rating[k] ){
+                    counter++;
+                }
+                if(rating[i] < rating[j] && rating[j] < rating[k]){
+                    counter++;
+                }
+            }
+        }
+    }
+    return counter;
+}
+
+//console.log(numTeams([2,5,3,4,1]));
+
+
+
+
 
 
 
