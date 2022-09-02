@@ -831,7 +831,140 @@ const zeroFilledSubarrays = (nums)=>{
     return result;
 }
 
-//console.log(zeroFilledSubarrays([0,0,0,2,0,0]))
+//console.log(zeroFilledSubarrays([0,0,0,2,0,0]));
+
+// not done yet
+const reorganizingString = (s)=>{
+    console.log(s);
+    let sHash = {};
+    let newArray = new Array(s.length).fill('');
+    console.log(newArray);
+
+    for(let i = 0; i < s.length; i++){
+        if(sHash[s[i]]){
+            sHash[s[i]]++
+        }else{
+            sHash[s[i]] = 1;
+        }
+    }
+    console.log(sHash);
+
+    for(const [key, value] of Object.entries(sHash)){
+        console.log(value);
+    }
+
+
+}
+
+//console.log(reorganizingString(
+    //"aab"))
+
+
+const lengthOfLIS = (nums)=>{
+    console.log(nums);
+    // using nested approach
+    if (nums.length === 0) {
+        return 0;
+    }
+    if (nums.length === 1) {
+        return 1;
+    }
+    if(nums.every((element)=>element === nums[0])){
+        return 1;
+    }
+    let lenArray = [];
+
+    for(let i = 0; i < nums.length; i++){
+        let startingPosiion = nums[i];
+        let array = [startingPosiion];
+        for(let j = i + 1; j < nums.length; j++){
+            if(nums[j] > startingPosiion){
+                array.push(nums[j]);
+            }else{
+                continue;
+            }
+        }
+        lenArray.push(array);
+    }
+    let maxLen = -Infinity;
+    for(let i = 0; i < lenArray.length; i++){
+        maxLen = Math.max(maxLen, lenArray[i].length);
+    }
+    let array;
+    for(let index in lenArray){
+        if(lenArray[index].length === maxLen){
+            array = lenArray[index];
+        }
+    }
+    // extracting the largest subsequence
+    console.log(array);
+    if(array.length === 1){
+        return 1;
+    }
+    
+    for(let i = 0; i < array.length; i++){
+       
+    }
+
+
+}
+
+//console.log(lengthOfLIS(
+    
+
+  //  [1,3,6,7,9,4,10,5,6]))
+
+
+  // max distance to closest person;
+const maxDistToClosest = (seats)=>{
+    let maxDistance = 0;
+    let closeLeft = 0;
+    let closeRight = 0;
+    for(let i = 0; i < seats.length; i++){
+        if(seats[i] === 0){
+            const leftSide = seats.slice(0, i);
+            const rigthSide = seats.slice(i + 1, seats.length + 1);
+            // check left
+            for(let j = leftSide.length - 1; j >= 0; j--){
+                if(leftSide[j] === 0){
+                    closeLeft++;
+                }else{
+                  closeLeft++;
+                  break;
+                }
+            }
+            // check rigth
+            for(let k = 0; k < rigthSide.length; k++){
+                if(rigthSide[k] === 0){
+                    closeRight++;
+                }else{
+                    closeRight++;
+                    break;
+                }
+            }
+            if(closeRight === 0){
+                maxDistance = Math.max(maxDistance, closeLeft);
+            }
+            if(closeLeft === 0){
+                maxDistance = Math.max(maxDistance, closeRight);
+            }
+
+            if(closeLeft > closeRight){
+                maxDistance = Math.max(maxDistance, closeRight);
+            }else{
+                maxDistance = Math.max(maxDistance, closeLeft);
+            }
+        }
+        closeLeft = 0;
+        closeRight = 0;
+    }
+    return maxDistance;
+}
+
+console.log(maxDistToClosest(
+    [0,1]))
+
+
 
 
 
