@@ -961,8 +961,55 @@ const maxDistToClosest = (seats)=>{
     return maxDistance;
 }
 
-console.log(maxDistToClosest(
-    [0,1]))
+//console.log(maxDistToClosest(
+  //  [0,1]));
+
+
+
+// find the longest word that can be formed
+
+const findLongestWord = (s, dictionary)=>{
+    // egde case for single letters
+    if(dictionary.every((element)=> element.length === 1)){
+        dictionary.sort();
+        return dictionary[0];
+    }
+    // check subsequence
+    const checkSubsequence = (word, string)=>{
+        if(word.length > s.length) return false;
+        let position = 0;
+        for(let i = 0; i < word.length; i++){
+            position = string.indexOf(word[i], position); // checking whether position is present or not
+            if(position === -1){ // if any of the index is not present;
+                return false;
+            }
+            position+= 1;// checking from the next position
+        }
+        return true;
+    }
+    let answerWord = '';
+    for(let i = 0; i < dictionary.length; i++){
+        const word = dictionary[i];
+        if(checkSubsequence(word, s)){ // checking for substring .. if it is true then it activates check
+            // check length
+            if(word.length > answerWord.length){
+                answerWord = word;
+            }else if(word.length === answerWord.length){
+               const compareResult = word.localeCompare(answerWord);
+               if(compareResult < 0) answerWord = word;
+            }
+       }
+    }
+    return answerWord
+
+}
+
+//console.log(findLongestWord("abpcplea",
+//["ale","apple","monkey","plea"]));
+
+
+
+
 
 
 
