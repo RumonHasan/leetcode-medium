@@ -1003,9 +1003,48 @@ const findLongestWord = (s, dictionary)=>{
     return answerWord
 
 }
-
 //console.log(findLongestWord("abpcplea",
 //["ale","apple","monkey","plea"]));
+
+
+// finding the longest word in a dictionary
+
+const longestWord = (words)=>{
+    let sortedWords = words.sort();
+    const getPrefix = (word)=>{
+        // extract all the prefix
+        let prefixArray = [];
+        let prefix = '';
+        for(let i = 0; i < word.length; i++){
+            if(i !== word.length - 1){
+                prefix += word[i];
+                prefixArray.push(prefix);
+            }
+        }
+        return prefixArray;
+    }
+    let resultWord = '';
+    for(let i = 0; i < sortedWords.length; i++){
+        const word = sortedWords[i];
+        let prefixSet = getPrefix(word);
+
+        // checking the prefix set
+        if(prefixSet.every((singleSet)=> sortedWords.includes(singleSet))){
+            if(word.length > resultWord.length){
+                resultWord = word;
+            }else if(word.length === resultWord.length){
+                const compare = word.localeCompare(resultWord);
+                if(compare < 0){
+                    resultWord = word;
+                }
+            }
+        }
+    }
+
+   return resultWord;
+}
+
+//console.log(longestWord(["a","banana","app","appl","ap","apply","apple"]))
 
 
 
