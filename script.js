@@ -1044,7 +1044,77 @@ const longestWord = (words)=>{
    return resultWord;
 }
 
-//console.log(longestWord(["a","banana","app","appl","ap","apply","apple"]))
+//console.log(longestWord(["a","banana","app","appl","ap","apply","apple"]));
+
+const findMaxLength = (nums)=>{
+    var hash = {0:-1};
+    var count = 0;
+    var max = 0;
+    for (var i=0;i<nums.length;i++) {
+        if (nums[i] === 0) count--;
+        else count++;
+
+        if (hash[count]!= null){
+            max = Math.max(max, i - hash[count]);
+            } 
+         else{
+            hash[count] = i 
+         } 
+    }
+    return max;
+}
+
+
+//console.log(findMaxLength([0,1,0,1,0]))
+
+
+
+
+const peopleIndexes = (favoriteCompanies)=>{
+    console.log(favoriteCompanies);
+    let indexHash = [];
+    let finalIndexArray = [];
+    for(let index in favoriteCompanies){
+        indexHash.push(new Set(favoriteCompanies[index]));
+    }
+    // checking hashSet presences
+    const checkThisShitSet = (primarySet, checkSet)=>{
+        if(primarySet.size > checkSet.size){
+            console.log(checkSet);
+            const checkSetArray = Array.from(checkSet);
+            if(checkSetArray.every((checkEl)=> primarySet.has(checkEl))){
+                return 1;
+            }
+        }
+    }
+    // nested approach
+    for(let i = 0; i < indexHash.length; i++){
+        let flag = 1;;
+        for(let j = 0; j < indexHash.length; j++){
+            if(i !== j){
+                if(checkThisShitSet(indexHash[j], indexHash[i]) === 1){
+                    // if it does contain then it breaks and continues with the next set relations
+                    flag = 0;
+                    break;
+                }
+            }
+            
+        }
+        flag === 1 && finalIndexArray.push(i);
+       
+    }
+ 
+    return finalIndexArray;
+
+}
+
+//console.log(peopleIndexes([["leetcode","google","facebook"],["google","microsoft"],["google","facebook"],["google"],["amazon"]]))
+
+
+
+
+
+
 
 
 
