@@ -1069,7 +1069,7 @@ const findMaxLength = (nums)=>{
 
 
 
-
+// people indexes in order to find common subsets of people working in various companies
 const peopleIndexes = (favoriteCompanies)=>{
     console.log(favoriteCompanies);
     let indexHash = [];
@@ -1108,7 +1108,80 @@ const peopleIndexes = (favoriteCompanies)=>{
 
 }
 
-//console.log(peopleIndexes([["leetcode","google","facebook"],["google","microsoft"],["google","facebook"],["google"],["amazon"]]))
+//console.log(peopleIndexes([["leetcode","google","facebook"],["google","microsoft"],["google","facebook"],["google"],["amazon"]]));
+
+
+
+// returning the longest len of the substring containing same letters after the changes made in k times
+const characterReplacement = (s, k)=>{
+    console.log(s, k);
+    let left = 0;
+    let right = 0;
+    let maxCharCount = 0;
+    const visited = {};
+
+    while(right < s.length){
+        const char = s[right];
+        visited[char] = visited[char] ? visited[char]+= 1 : visited[char] = 1;
+        if(visited[char] > maxCharCount){
+            maxCharCount = visited[char];
+        }
+        const rightLeft = right - left + 1;
+        console.log(visited, maxCharCount, rightLeft);
+        if(rightLeft - maxCharCount > k){
+            left++;
+            visited[s[left]]--;
+        }
+        right++;
+    }
+    
+    return right - left;
+  
+}
+
+//console.log(characterReplacement("ABABA", 2));
+
+
+// asteroid collision 
+
+const asteroidCollision = (asteroids) =>{
+    const astroStack = [];
+    for(let i = 0; i < asteroids.length; i++){
+        // our asteroid
+        let asteroid = asteroids[i];
+        // check collision
+        let checkCollision = false;
+        // check collision
+        while(astroStack[astroStack.length - 1] > 0 && asteroid < 0){
+            checkCollision = true;
+            let absRoid = Math.abs(asteroid);
+            let absStack = Math.abs(astroStack[astroStack.length - 1]);
+            console.log(astroStack, asteroid);
+            // checks
+            if(absRoid === absStack){
+                astroStack.pop();
+                break;
+            }else if(absStack < absRoid){
+                astroStack.pop();
+                checkCollision = false;
+                // note if it is the last remaining element then gets out
+            }else if(absStack > absRoid){
+                // we continue cuz stack has the bigger balls
+                break;
+            }
+        }
+        // no collision then keep adding
+        !checkCollision && astroStack.push(asteroid);
+    }
+    return astroStack
+};
+
+//console.log(asteroidCollision([10,2,-5]))
+
+
+
+
+
 
 
 
