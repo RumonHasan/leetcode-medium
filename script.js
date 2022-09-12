@@ -1156,7 +1156,6 @@ const asteroidCollision = (asteroids) =>{
             checkCollision = true;
             let absRoid = Math.abs(asteroid);
             let absStack = Math.abs(astroStack[astroStack.length - 1]);
-            console.log(astroStack, asteroid);
             // checks
             if(absRoid === absStack){
                 astroStack.pop();
@@ -1177,6 +1176,60 @@ const asteroidCollision = (asteroids) =>{
 };
 
 //console.log(asteroidCollision([10,2,-5]))
+
+
+// key is to find the next greatest elements but in a circular fashion if there is none present
+const nextGreaterElements = (nums)=>{
+    console.log(nums);
+    const stack = new Array(nums.length).fill(-1);
+    const len = nums.length;
+    let index = 0;
+    let recircleState = false;
+
+    // checking for the next greates element
+    while(index < len){
+        // main arrays to traverse through for next biggest
+        const currentElement = nums[index];
+        const prevElements = nums.slice(0, index + 1);
+        const nextElements = nums.slice(index + 1, nums.length).length === 0 ? [currentElement] : nums.slice(index + 1, nums.length);
+
+        // checking the first set of elements in order to check the first availability 
+        if(!recircleState){
+            for(let i = 0; i < nextElements.length; i++){
+                if(nextElements[i] > currentElement){
+                    stack[index] = nextElements[i];
+                    break;
+                }
+                if(i === nextElements.length - 1){
+                    recircleState = true;
+                }
+
+            }
+        }
+        if(recircleState){
+            for(let i = 0; i < prevElements.length; i++){
+                if(prevElements[i] > currentElement){
+                    stack[index] = prevElements[i];
+                    recircleState = false;
+                    break;
+                }
+                if(i === prevElements.length - 1){
+                    recircleState = false;
+                }
+            }
+        }
+
+        index++;
+    }
+    return stack;
+}
+
+console.log(nextGreaterElements([3,1,0,1]));
+
+// expected answer: [2,3,4,-1,4]
+// the last number three does not have a next greater number but in a circular pattern the greatest comes back to 4
+// if cannot locate the next greatest element then go in a circular pattern once more
+
 
 
 
