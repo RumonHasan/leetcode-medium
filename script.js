@@ -1180,7 +1180,6 @@ const asteroidCollision = (asteroids) =>{
 
 // key is to find the next greatest elements but in a circular fashion if there is none present
 const nextGreaterElements = (nums)=>{
-    console.log(nums);
     const stack = new Array(nums.length).fill(-1);
     const len = nums.length;
     let index = 0;
@@ -1203,7 +1202,6 @@ const nextGreaterElements = (nums)=>{
                 if(i === nextElements.length - 1){
                     recircleState = true;
                 }
-
             }
         }
         if(recircleState){
@@ -1223,12 +1221,69 @@ const nextGreaterElements = (nums)=>{
     }
     return stack;
 }
-
-console.log(nextGreaterElements([3,1,0,1]));
+//console.log(nextGreaterElements([3,1,0,1]));
 
 // expected answer: [2,3,4,-1,4]
 // the last number three does not have a next greater number but in a circular pattern the greatest comes back to 4
 // if cannot locate the next greatest element then go in a circular pattern once more
+
+
+const maxProduct = words =>{
+    let maxLength = 0;
+    const checkWord = (mainWord, checkWord)=>{
+        let mainWordSet = new Set([...mainWord]);
+        let checkWordArray = checkWord.split('');
+        if(checkWordArray.every((letter)=> !mainWordSet.has(letter))){
+            return true;
+        }
+    }
+    for(let i = 0; i < words.length; i++){
+        let mainWord = words[i];
+        for(let j = i + 1; j < words.length; j++){
+                if(checkWord(mainWord, words[j])){
+                    maxLength = Math.max(mainWord.length * words[j].length, maxLength);
+                }
+        }
+    }
+    return maxLength;
+}
+
+//console.log(maxProduct(["vfa","xtlz","efvep","qax","xttqeqhdzda","dotpkwl","vzexpeg","lnwcc","tz","oddqwzk","qpo","wa","gahbx","dxmffnv","pwcawa","gp","bmfomiyep","pqlbfol","yvkxl","mewwmixa","adbqqe","ihdeoawnpo","sreiw","ohppahwicoq","wgw","zrjow","qwqebael","rlkrx","njraonrxx","cmkdzas","ctcrryvpyc","kcsbd","uvmjcmelngg","rznp","hezmqrsdoe","doxsmfh","sxbpdfio","bg","fwjgmgjez","pskvtosefsx","gcj","xv","rcoabdx","zsgag","uohvz","dsmffq","nbbtm","ercccjym","iagqmyauqun","czwexke","unig","iyczgxmakc","qgnjfqai","qbatxtev","qpp","jp","bg","ek","jbele","oepzeekydf","xfncmi","dyr","htnbkxtaxo","hvglb","iao","sgqw","vwnmvcjtu","tc","ylyn","wzibe","ywzemkxnds","bapdoxed","fuosanrps","iqnidqfprif","ibeweskp","vdoofj","ybnwnqtyx","jbzuipwr","vjtfp","ihgunpppa","hohpqb","upjtrljrg","pgh","av","cglwgcpac","tznomaqzd","kxigufgqhqp","wt","iyahn","vnmjndkd","dde","uztuzssitar","wvd","svr","cy","gtvh","hefltcdldzj","itrd","egszngv","pxr"]));
+
+
+// setting the matrix columns and rows into zero
+const setZeroes = (matrix)=>{
+    let colSet = new Set();
+    let rowSet = new Set();
+    for(let i = 0 ; i < matrix.length; i++){
+        for(let j = 0; j < matrix[i].length; j++){
+            if(matrix[i][j] === 0){
+                colSet.add(j);
+                rowSet.add(i);
+            }
+        }
+    }
+    // col and row set
+    let rowLen = matrix[0].length;
+    let colLen = matrix.length;
+    for(let col of colSet){
+        for(let j = 0; j < colLen; j++){
+            matrix[j][col] = 0;
+        }
+    }
+    for(let row of rowSet){
+        for(let i = 0; i < rowLen; i++){
+            matrix[row][i] = 0
+        }
+    }
+    return matrix;
+}
+
+//console.log(setZeroes([[1,1,1],[1,0,1],[1,1,1]]))
+
+
+
+
 
 
 
