@@ -1279,7 +1279,45 @@ const setZeroes = (matrix)=>{
     return matrix;
 }
 
-//console.log(setZeroes([[1,1,1],[1,0,1],[1,1,1]]))
+//console.log(setZeroes([[1,1,1],[1,0,1],[1,1,1]]));
+
+
+// note: remember left max bound can be the left amount.. and the rightmost amount cannot exceed 
+// the right most bound... therefore using the sliding technique and shifting the starting index when it hits the highest right bound
+const numSubarrayBoundedMax = (nums, left, right)=>{
+    console.log(nums, left, right);
+    let end = -1;
+    let start = -1;
+    // initialising negative to including additional el for subarray
+    let finalLength = 0;
+    let index = 0;
+    while(index < nums.length){
+        // once it hits the max on the right side... reset the pointers to the index of the external range element
+        if(nums[index] > right){
+           end = index;
+           start = index;
+        }else{
+            if(nums[index] >= left && nums[index] <= right){ 
+                end = index;
+            }
+        }
+        console.log(end, start);
+        finalLength += Math.abs(end - start);
+        index++;
+        
+    }
+    return finalLength;
+}
+//console.log(numSubarrayBoundedMax(
+  //  [2,3,4,3], 2, 3))
+
+
+
+
+
+
+
+
 
 
 
