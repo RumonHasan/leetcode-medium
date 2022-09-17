@@ -1343,7 +1343,33 @@ const subArraySum = (nums, k)=>{
 }
 
 //console.log(subArraySum(
-  //  [1,2,3], 3))
+  //  [1,2,3], 3));
+
+
+const maxProductSubarray = (nums)=>{
+    console.log(nums);
+    // trick is to get both the maximum and minimum for the pairs of products of the number to avoid negative number issue.
+    let result = Math.max(...nums);
+    let currentMin = 1;
+    let currentMax = 1;
+    let temp = 1;
+    for(let num of nums){
+        if (num === 0){
+            currentMax = currentMin = 1;
+            continue;
+        }else{
+            temp = currentMax * num;
+            currentMax = Math.max(temp, num * currentMin, num);
+            currentMin = Math.min(temp, num * currentMin, num);
+            result = Math.max(currentMax, result);
+        }
+    }
+    return result;
+}
+
+//console.log(maxProductSubarray([2,3,4,-2,0,4,40]));
+
+
 
 
 
