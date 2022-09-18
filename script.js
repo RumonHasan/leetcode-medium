@@ -1401,6 +1401,7 @@ const longestOnes = (nums, k)=>{
     let start = 0;
     let zeroCount = 0;
     for(let end = 0; end < nums.length; end++){
+        // counting till reaching K
        if(nums[end] === 0){
             zeroCount++;
        }
@@ -1410,6 +1411,7 @@ const longestOnes = (nums, k)=>{
             if(nums[start] === 0){
                 zeroCount--;
             }
+            // increase the start index to start from the beginning of the zero indexes in the array
             start++;
        }
        let differenceLen = (end + 1) - start;
