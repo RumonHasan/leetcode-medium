@@ -1369,6 +1369,29 @@ const maxProductSubarray = (nums)=>{
 
 //console.log(maxProductSubarray([2,3,4,-2,0,4,40]));
 
+// getting the min length
+
+const minSubarrayLen = (target, nums)=>{
+    let sum = 0;
+    let start = 0;
+    let minLen = Infinity;
+    // initial check
+    for(let i = 0; i < nums.length; i++){
+        sum += nums[i];
+        while(sum >= target){
+            sum -= nums[start];
+            let windowReduce = (i + 1) - start;
+            start++;
+            minLen = Math.min(minLen, windowReduce);
+        }
+    }
+    return minLen === Infinity ? 0 : minLen;
+}
+
+//console.log(minSubarrayLen(
+ //   15,
+//[5,1,3,5,10,7,4,9,2,8]))
+
 
 
 
