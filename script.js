@@ -1390,7 +1390,35 @@ const minSubarrayLen = (target, nums)=>{
 
 //console.log(minSubarrayLen(
  //   15,
-//[5,1,3,5,10,7,4,9,2,8]))
+//[5,1,3,5,10,7,4,9,2,8]));
+
+
+// longest ones after flipping for K zeroes
+
+const longestOnes = (nums, k)=>{
+    //console.log(nums, k);
+    let maxLen = -Infinity;
+    let start = 0;
+    let zeroCount = 0;
+    for(let end = 0; end < nums.length; end++){
+       if(nums[end] === 0){
+            zeroCount++;
+       }
+       // checking while sum is bigger than k
+       while(zeroCount > k){
+        // reduces the zero till it hits same level of zero count as K
+            if(nums[start] === 0){
+                zeroCount--;
+            }
+            start++;
+       }
+       let differenceLen = (end + 1) - start;
+       maxLen = Math.max(differenceLen, maxLen)
+    }
+    return maxLen;
+
+}
+//console.log(longestOnes([1,1,1,0,0,0,1,1,1,1,0], 2))
 
 
 
