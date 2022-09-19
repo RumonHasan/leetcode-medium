@@ -1445,7 +1445,51 @@ const numSubarrayProductLessThanK = (nums, k)=>{
 
 }
 
-//console.log(numSubarrayProductLessThanK([10,5,2,6], 100))
+//console.log(numSubarrayProductLessThanK([10,5,2,6], 100));
+
+const longestSubarray = (nums)=>{
+    console.log(nums);
+    let countMaxOnes = 0;
+    if(nums.every((el)=> el === 0)){
+        return 0;
+    }
+    /*
+    // for(let i = 0; i < nums.length; i++){
+    //     if(nums[i] === 0){
+    //         const leftSide = nums.slice(0, i).length === 0 ? [0] : nums.slice(0, i);
+    //         const rightSide = nums.slice(i + 1, nums.length + 1);
+    //         let rightOnes = [];
+    //         let leftOnes = [];
+            
+    //         // left side filter
+    //         for(let j = leftSide.length - 1; j >= 0; j-- ){
+    //             if(leftSide[j] === 1){
+    //                 leftOnes.push(1);
+    //             }else{
+    //                 break;
+    //             }
+    //         }
+    //         // right side filter
+    //         for(let k = 0; k < rightSide.length; k++){
+    //             if(rightSide[k] === 1){
+    //                 rightOnes.push(1);
+    //             }else{
+    //                 break;
+    //             }
+    //         }
+    //         countMaxOnes = Math.max(countMaxOnes, rightOnes.length + leftOnes.length)
+    //     }
+    // }*/
+    
+    // sliding window approach O(N);
+    
+    return countMaxOnes === 0 ? nums.length - 1: countMaxOnes;
+
+}
+
+console.log(longestSubarray([1,1,1]))
+
+
 
 
 
