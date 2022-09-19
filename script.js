@@ -1420,7 +1420,38 @@ const longestOnes = (nums, k)=>{
     return maxLen;
 
 }
-//console.log(longestOnes([1,1,1,0,0,0,1,1,1,1,0], 2))
+//console.log(longestOnes([1,1,1,0,0,0,1,1,1,1,0], 2));
+
+
+const numSubarrayProductLessThanK = (nums, k)=>{
+    console.log(nums, k);
+    let product = 1;
+    let start = 0;
+    let count = 0;
+    // using sliding window technique
+    for(let end = 0; end < nums.length; end++){
+        product = product * nums[end];
+
+        while(product >= k){
+            // dividing subarray in order to reduce the window and increase the count;
+            product = product / nums[start];
+            start++;
+        }
+        let subLength = (end - start) + 1;
+        count = count + subLength;
+
+    }
+    return count < 0 ? 0 : count;
+
+}
+
+//console.log(numSubarrayProductLessThanK([10,5,2,6], 100))
+
+
+
+
+
+
 
 
 
