@@ -1482,12 +1482,27 @@ const longestSubarray = (nums)=>{
     // }*/
     
     // sliding window approach O(N);
-    
-    return countMaxOnes === 0 ? nums.length - 1: countMaxOnes;
+    let start = 0;
+    let zeroCount = 0;
+    let maxZeroCount = 1;
+    for(let end = 0; end < nums.length; end++){
+        if(nums[end] === 0){
+            zeroCount++;
+        }
+        while(zeroCount > maxZeroCount){
+            if(nums[start] === 0){
+                zeroCount--;
+            }
+            start++;
+        }
+        countMaxOnes = Math.max(countMaxOnes, (end - start));
+        
+    }
+    return countMaxOnes;
 
 }
 
-console.log(longestSubarray([1,1,1]))
+//console.log(longestSubarray([1,1,1,0,1,1,0,1]))
 
 
 
