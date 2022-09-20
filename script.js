@@ -1480,7 +1480,6 @@ const longestSubarray = (nums)=>{
     //         countMaxOnes = Math.max(countMaxOnes, rightOnes.length + leftOnes.length)
     //     }
     // }*/
-    
     // sliding window approach O(N);
     let start = 0;
     let zeroCount = 0;
@@ -1502,7 +1501,55 @@ const longestSubarray = (nums)=>{
 
 }
 
-//console.log(longestSubarray([1,1,1,0,1,1,0,1]))
+//console.log(longestSubarray([1,1,1,0,1,1,0,1]));
+
+// need to find maxOccurence of substrings
+const maxFreq = (s, maxLetters, minSize, maxSize)=>{
+    let stringMap = new Map();
+    for(let i = 0; i < s.length; i++){
+        for(let j = i; j < s.length; j++){
+            // limiting the substring options
+            if(Math.abs(j - i) >= minSize - 1 && Math.abs(j - i) <= maxSize - 1  ){
+                const substring = s.slice(i, j + 1);
+                if(stringMap.has(substring)){
+                    stringMap.set(substring, stringMap.get(substring) + 1);
+                }else{
+                    stringMap.set(substring, 1);
+                }
+            }else{
+                continue;
+            }
+        }
+    }
+       // checking for unique letters for collective occurences
+       const checkRepeat = (word)=>{
+        let hash = {};
+        for(let i = 0; i < word.length; i++){
+            hash[word[i]] ? hash[word[i]]++ : hash[word[i]] = 1;
+        }
+        let keysLen = Object.keys(hash);
+        if(keysLen.length <= maxLetters){
+            return true;
+        }
+        return false;
+    }
+    // filtering the map;
+    let count = 0;
+    for(let [key, value] of stringMap){
+        if(checkRepeat(key)){
+            if(count < value){
+                count = value;
+            }
+        }
+    }
+    return count;
+}
+//console.log(maxFreq("fjkhekdgbiegfjhdklhglcdfdemmamgihhcflkibgalfbghelbaijbemdhjaimbmmhlkfmgefafjfbmjcabghjffagefdkkcdkhkiklhafdfbcfhblljledcdbmcjiggibijbjeaemamfhgbkmgfmbhmgbeclikcajghdlmhfblbmlbbmebkdldeadekebjjljlehkjfaehjhimhjhgjefbgcigkbccfhehehlaaemghjajibdghillfhchjlelmmgahheigmlgiakfkikmbjjidmiahhmaagkegfljjedclbhbjclaieedcalhdfamgagciekhikbmhakjjbjccalbhedcjidmkkdgchmbikhcjaldellhmagblagbhmmkflcgclcdfkijglbmeimlmdjbjjijiejkbhlgjhfklfdmhgglmflbcajblibldlfakdkgjdjmiafbkfifahjbdblckdhmhjdmeahchffkelikfehldmdhhgackdlhdjgkackckfedkahjelajheaaemaekkhckhadaeadeekafaclbjjhdfdbieghmagmgfemcfjjdadejefelahejijlmgdegijihjfceciaagcimbfbmlccigdaealbecfagegkafbadfchekfjcfcigllfceheeihiaaemcgfmbeidcdkmbgckmkdgembafeheeeghakicbfdkkiificiafffjckedceblmhiekcdleihkahelhhbddidgibbifjjhcegkacjmdelkiaefdglfajhfbfemcbcgkaiebjleafblclidaagadcdjadkfdahgaldjkkmadjhbgmmbaelajeegbgghfgllbfdhdjcdmbciklliceemgcfimfklghlfikigcgachkjeaejeaihlmhbjcejlkhckimieggallbcibmdjibijhfceekamcmcmhicajlhkgaglgbeaebgfgggdemilbjcehdcmjkgfjjli", 6, 20, 26))
+
+
+
+
+
 
 
 
