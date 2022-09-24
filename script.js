@@ -1608,7 +1608,47 @@ const minimumTotal = (triangle)=>{
     // extracting the last row for minval in order to get the lowest path sum;
     return Math.min(...newTriangle[newTriangle.length - 1]);
     }
-//console.log(minimumTotal([[2],[3,4],[6,5,7],[4,1,8,3]]))
+//console.log(minimumTotal([[2],[3,4],[6,5,7],[4,1,8,3]]));
+
+
+// calculating the number of islands
+
+const numIslands = (grid)=>{
+    const island = '1';
+    const water = '0';
+    let countIslands = 0;
+    // function to convert islands into body of water
+    const islandConversion = (row, col, grid)=>{
+        if(grid[row] === undefined || grid[row][col] === undefined || grid[row][col] === water){
+            return;
+        }
+        grid[row][col] = water;
+        // recursive calls takes care of the connected island bodies and converts em into water
+        islandConversion(row + 1, col, grid);
+        islandConversion(row, col + 1, grid);
+        islandConversion(row, col - 1, grid);
+        islandConversion(row - 1, col, grid);
+    }
+    // note island is surrounded by water both vertically and horizontally
+    for(let row = 0; row < grid.length; row++){
+        const rowLen = grid[row].length;
+        for(let col = 0; col < rowLen; col++){
+            if(grid[row][col] === island){
+                countIslands++;
+                islandConversion(row, col, grid)
+            }
+        }
+    }
+    return countIslands;
+
+}
+
+// console.log(numIslands([
+//     ["1","1","1","1","0"],
+//     ["1","1","0","1","0"],
+//     ["1","1","0","0","0"],
+//     ["0","0","0","0","0"]
+//   ]))
 
 
 
