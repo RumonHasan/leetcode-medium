@@ -1546,7 +1546,6 @@ const maxFreq = (s, maxLetters, minSize, maxSize)=>{
 }
 //console.log(maxFreq("fjkhekdgbiegfjhdklhglcdfdemmamgihhcflkibgalfbghelbaijbemdhjaimbmmhlkfmgefafjfbmjcabghjffagefdkkcdkhkiklhafdfbcfhblljledcdbmcjiggibijbjeaemamfhgbkmgfmbhmgbeclikcajghdlmhfblbmlbbmebkdldeadekebjjljlehkjfaehjhimhjhgjefbgcigkbccfhehehlaaemghjajibdghillfhchjlelmmgahheigmlgiakfkikmbjjidmiahhmaagkegfljjedclbhbjclaieedcalhdfamgagciekhikbmhakjjbjccalbhedcjidmkkdgchmbikhcjaldellhmagblagbhmmkflcgclcdfkijglbmeimlmdjbjjijiejkbhlgjhfklfdmhgglmflbcajblibldlfakdkgjdjmiafbkfifahjbdblckdhmhjdmeahchffkelikfehldmdhhgackdlhdjgkackckfedkahjelajheaaemaekkhckhadaeadeekafaclbjjhdfdbieghmagmgfemcfjjdadejefelahejijlmgdegijihjfceciaagcimbfbmlccigdaealbecfagegkafbadfchekfjcfcigllfceheeihiaaemcgfmbeidcdkmbgckmkdgembafeheeeghakicbfdkkiificiafffjckedceblmhiekcdleihkahelhhbddidgibbifjjhcegkacjmdelkiaefdglfajhfbfemcbcgkaiebjleafblclidaagadcdjadkfdahgaldjkkmadjhbgmmbaelajeegbgghfgllbfdhdjcdmbciklliceemgcfimfklghlfikigcgachkjeaejeaihlmhbjcejlkhckimieggallbcibmdjibijhfceekamcmcmhicajlhkgaglgbeaebgfgggdemilbjcehdcmjkgfjjli", 6, 20, 26));
 
-
 const validStackSequences = (pushed, popped)=>{
     const stack = [];
     let pushIndex = 0;
@@ -1568,10 +1567,51 @@ const validStackSequences = (pushed, popped)=>{
     }else{
         return false;
     }
-    
 }
 
 //console.log(validStackSequences([1,2,3,4,5], [4,5,3,2,1]));
+
+const minimumTotal = (triangle)=>{
+    const newTriangle = [];
+    // fill new triangle
+    for(let i = 0; i < triangle.length; i++){
+        let singleRow = triangle[i];
+        let newTriangleRow = new Array(singleRow.length).fill(0);
+        newTriangle.push(newTriangleRow);
+    }
+    // adding the initial starting point 
+    newTriangle[0] = triangle[0]; // adding the first row
+    // main loop
+    for(let row = 1; row < triangle.length; row++){
+        let singleRowLen = triangle[row].length
+        for(let col = 0; col < singleRowLen; col++){
+            let lastColIndex = triangle[row].length - 1;
+            // first element in every row
+            if(col === 0){
+                newTriangle[row][0] = newTriangle[row - 1][0] + triangle[row][0];
+            }else if(col === lastColIndex){
+                if(col === 1){
+                    newTriangle[row][lastColIndex] = newTriangle[row - 1][0] + triangle[row][lastColIndex]
+                }else{
+                    let prevRowEndValue = newTriangle[row - 1].length - 1
+                    newTriangle[row][lastColIndex] = newTriangle[row - 1][prevRowEndValue] + triangle[row][lastColIndex];
+                }
+            }else{
+                // final case for the center elements
+                let valOne = triangle[row][col] + newTriangle[row - 1][col];
+                let valTwo = triangle[row][col] + newTriangle[row - 1][col - 1];
+                let minVal = Math.min(valOne, valTwo);
+                newTriangle[row][col] = minVal;
+            }
+        }
+    }
+    // extracting the last row for minval in order to get the lowest path sum;
+    return Math.min(...newTriangle[newTriangle.length - 1]);
+    }
+//console.log(minimumTotal([[2],[3,4],[6,5,7],[4,1,8,3]]))
+
+
+
 
 
 
