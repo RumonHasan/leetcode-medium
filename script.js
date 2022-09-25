@@ -897,7 +897,6 @@ const lengthOfLIS = (nums)=>{
         }
     }
     // extracting the largest subsequence
-    console.log(array);
     if(array.length === 1){
         return 1;
     }
@@ -1674,7 +1673,6 @@ const numIslands = (grid)=>{
 
 
 const isStraightHand = (hand, groupSize)=>{
-    console.log(hand);
     hand.sort((a, b)=> a - b);
     if(hand.length % groupSize){
         return false;
@@ -1706,7 +1704,46 @@ const isStraightHand = (hand, groupSize)=>{
 //console.log(isStraightHand([1,2,3,6,2,3,4,7,8], 3))
 
 //console.log(isStraightHand([1,2,3,6,2,3,4,7,8],
-  //  3))
+  //  3));
+
+
+// longest increasing subsequence
+const findNumberOfLIS = (nums)=>{
+    const countOfSubsequence = new Array(nums.length).fill(1);
+    const lenOfSubsequence = new Array(nums.length).fill(1);
+    // forming the subsequence i will get the els that come after it with gaps
+    const stack = [];
+    for(let i = 0; i < nums.length; i++){
+        for(let j = i + 1; j < nums.length; j++){
+            
+        }
+    }
+
+    //console.log('count', countOfSubsequence, 'length', lenOfSubsequence);
+}
+
+// console.log(findNumberOfLIS([1,3,5,4,7]));
+
+const lengthOfLISRetry = (nums)=>{
+    const lengthOfSubsequence = new Array(nums.length).fill(1);
+    for(let i = 1; i < nums.length; i++){
+        for(let j = 0; j < i; j++){
+            if(nums[j] >= nums[i]){
+                continue;
+            }
+            if(nums[i] > nums[j]){
+                // interchanging the subsequence vals before the primary element
+                lengthOfSubsequence[i] = Math.max(lengthOfSubsequence[i], lengthOfSubsequence[j] + 1);
+            }
+        }
+    }
+    return Math.max(...lengthOfSubsequence);
+}
+
+//console.log(lengthOfLISRetry([0,1,0,3,2,3]))
+
+
+
 
 
 
