@@ -1740,7 +1740,46 @@ const lengthOfLISRetry = (nums)=>{
     return Math.max(...lengthOfSubsequence);
 }
 
-//console.log(lengthOfLISRetry([0,1,0,3,2,3]))
+//console.log(lengthOfLISRetry([0,1,0,3,2,3]));
+
+
+const partitionLabels = (s)=>{
+    let occurenceHash = {};
+    // getting the last index of the occurence of the letter
+    let end = 0;
+    let sizeOfPartitiion = 0;
+    let indices = [];
+    // adding the last indexes of the letters
+    for(let i = 0; i < s.length; i++){
+        if(occurenceHash[s[i]]){
+            occurenceHash[s[i]] = i;
+        }else{
+            occurenceHash[s[i]] = i;
+        }
+    }
+    // if the size of each partition is end + 1 then inject and record the partition length
+    for(let i = 0; i < s.length; i++){
+        if(occurenceHash[s[i]] || occurenceHash[s[i]] === 0){
+            sizeOfPartitiion++;
+            end = Math.max(occurenceHash[s[i]], end);
+        }
+        if(sizeOfPartitiion === end + 1){
+            indices.push(sizeOfPartitiion);
+        }
+    }
+    // deducting the extra partition indexes
+    let finalIndicex = new Array(indices.length).fill(0);
+    for(let i = 0 ; i < indices.length; i++){
+        if(i === 0){
+            finalIndicex[i] = indices[i];
+        }else{
+            finalIndicex[i] = indices[i] - indices[i - 1];
+        }
+    }
+    return finalIndicex;
+}
+
+//console.log(partitionLabels("ababcbacadefegdehijhklij"))
 
 
 
