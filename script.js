@@ -1782,6 +1782,27 @@ const partitionLabels = (s)=>{
 //console.log(partitionLabels("ababcbacadefegdehijhklij"))
 
 
+// partition string;
+const partitionString = (s)=>{
+    let map = new Set()
+    let count = 1;
+   for(let i = 0; i < s.length; i++){
+        if(map.has(s[i])){
+            map = new Set();
+            count++
+        }
+        map.add(s[i]);
+   }
+   return count;
+
+}
+
+//console.log(partitionString("abacaba"));
+
+
+
+
+
 
 
 
