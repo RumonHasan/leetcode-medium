@@ -1800,6 +1800,123 @@ const partitionString = (s)=>{
 //console.log(partitionString("abacaba"));
 
 
+// length of longest number of subsequence
+const findNumberOfLISRetry = (nums)=>{
+    if(nums.every((el)=> el === nums[0])){
+        return nums.length;
+    }
+    let subLength = new Array(nums.length).fill(1);
+    let repeatCountArray = new Array(nums.length).fill(1);
+    // checking for the longest increasing substring
+    for(let i = 1; i < nums.length; i++){
+        for(let j = 0; j < i; j++){
+            // skip if case not satisfied
+            if(nums[j] >= nums[i]){
+                continue;
+            }
+            if(nums[i] > nums[j]){
+                // recording the repeat count for similar subsequence value then adding 1
+                if(subLength[i] === subLength[j] + 1){
+                    repeatCountArray[i] += repeatCountArray[j]
+                }else{
+                    subLength[i] = Math.max(subLength[i], subLength[j] + 1);
+                    repeatCountArray[i] = repeatCountArray[j];
+                }
+            }
+        }
+    }
+    let maxSubLenValue = Math.max(...subLength);
+    let finalCount = 0;
+    for(let index in nums){
+        if(subLength[index] === maxSubLenValue){
+            finalCount += repeatCountArray[index];
+        }
+    }
+    return finalCount;
+}
+// console.log(findNumberOfLISRetry(
+//     [1,2,3,1,2,3,1,2,3]));
+
+// const checkFindLongestSubsequence = (nums)=>{
+//     console.log(nums);
+
+//     const dp = new Array(nums.length).fill(1);
+//     const cArr = new Array(nums.length).fill(1);
+//     let max = 1;
+
+//     for(let i = 1; i < nums.length; i++){
+//         // traversing uptill j
+//         for(let j = 0; j < i; j++){
+//             if(nums[i] > nums[j]){
+//                 console.log('main', nums[i], 'second', nums[j])
+//                 if (dp[j] + 1 > dp[i]) {
+//                     dp[i] =  1 + dp[j];
+//                     cArr[i] = cArr[j]
+//                 }else if(dp[j] + 1 === dp[i]){
+//                     cArr[i] += cArr[j];
+//                     console.log(cArr);
+//                 }
+            
+//             }
+            
+//         }
+        
+//         max = Math.max(max, dp[i]);
+//         console.log(max);
+//     }
+    
+
+// }   
+
+// //console.log(checkFindLongestSubsequence([1,2,4,3,5,4,7,2]));
+
+
+// longest non repeating substring with every character being unique
+const longestNonRepeatingCharacters = (s)=>{
+    console.log(s);
+    let max = 0;
+    let end = 0;
+    let start = 0;
+    let hash = {};
+
+    while(end < s.length){
+        if(hash[s[end]]){
+            hash[s[end]]++
+        }else{
+            hash[s[end]] = 1;
+        }
+        // checking for repeating characters
+        while(hash[s[end]] > 1){
+            // decrement the substring from the left
+            let leftChar = s[start];
+            if(hash[leftChar] > 1){
+                hash[leftChar]--;
+            }else{
+                delete hash[leftChar];
+            }
+            start++;
+        }
+        max = Math.max(max, (end - start) + 1);
+        console.log(max);
+        end++;
+    }
+    return max;
+
+}   
+console.log(longestNonRepeatingCharacters(
+    "pwwwkew"))
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
