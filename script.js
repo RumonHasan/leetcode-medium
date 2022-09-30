@@ -1878,7 +1878,6 @@ const longestNonRepeatingCharacters = (s)=>{
     let end = 0;
     let start = 0;
     let hash = {};
-
     while(end < s.length){
         if(hash[s[end]]){
             hash[s[end]]++
@@ -1889,22 +1888,111 @@ const longestNonRepeatingCharacters = (s)=>{
         while(hash[s[end]] > 1){
             // decrement the substring from the left
             let leftChar = s[start];
-            if(hash[leftChar] > 1){
-                hash[leftChar]--;
-            }else{
-                delete hash[leftChar];
-            }
+            hash[leftChar] > 1 ? hash[leftChar]-- : delete hash[leftChar];
             start++;
         }
         max = Math.max(max, (end - start) + 1);
-        console.log(max);
         end++;
     }
     return max;
 
 }   
-console.log(longestNonRepeatingCharacters(
-    "pwwwkew"))
+///console.log(longestNonRepeatingCharacters(
+   // "tmmzuxt"))
+
+
+
+   // finding substring and corresponding it with the number of replacements
+const longestCharacterReplacement = (s, k)=>{
+    console.log(s); 
+
+    let end = 0;
+    let start = 0;
+    let visitedHash = {};
+    let maxReplacements = k;
+    let maxLength = 0;
+
+    while(end < s.length){
+        if(visitedHash[s[end]]){
+            visitedHash[s[end]]++;
+        }else{
+            visitedHash[s[end]] = 1;
+        }
+        console.log(visitedHash);
+        // get length of the current substring
+        let maxLetter = Math.max(...Object.values(visitedHash));
+        while((end - start) + 1 - maxLetter > maxReplacements){
+            visitedHash[s[start]]--;
+            start++;
+        }
+        console.log('end', end, 'start', start);
+        maxLength = Math.max((end - start) + 1, maxLength);
+        console.log(maxLength);
+        end++;
+    }
+
+    return maxLength;
+}
+
+//console.log(longestCharacterReplacement(
+  //  "AABABBA", 1))
+
+
+// find starting index of similar anagrams
+const findAnagrams = (s, p)=>{
+    //console.log(s, p);
+
+    let endIndex = 0;
+    let startIndex = 0;
+    let anagramLength = p.length;
+    let indexRecord = [];
+    let pHashMain = {};
+    let sHashMain = {};
+    for(let index in p){ // populating list for p length
+        pHashMain[p[index]] ? pHashMain[p[index]]++ : pHashMain[p[index]] = 1;
+        sHashMain[s[index]] ? sHashMain[s[index]]++ : sHashMain[s[index]] = 1;
+    }
+    // checking whether the hashmaps are equal or not
+    const checkHashEquals = (pHashMain, sHashMain)=>{
+        const pHashKeys = Object.keys(pHashMain).length;
+        const sHashKeys = Object.keys(sHashMain).length;
+        if(sHashKeys === pHashKeys){
+            // comparing every key of one object with their corresponding key values
+            return Object.keys(pHashMain).every(key=> sHashMain.hasOwnProperty(key) &&
+            pHashMain[key] === sHashMain[key]);
+        }
+        return false;
+    }
+    if(checkHashEquals(pHashMain, sHashMain)){
+        indexRecord.push(0);
+    }else{
+        indexRecord = [];
+    }
+    endIndex = anagramLength;
+    // using sliding window technique to check every plength string
+    while(endIndex < s.length){
+      if(sHashMain[s[endIndex]]){
+        sHashMain[s[endIndex]]++;
+      }else{
+        sHashMain[s[endIndex]] = 1;
+      }
+      sHashMain[s[startIndex]]--;
+      // delete object if the object key value is equal to 0
+      if(sHashMain[s[startIndex]] == 0){
+        delete sHashMain[s[startIndex]];
+      }
+      startIndex++; // incrementing start to the next element to check hash;
+      if(checkHashEquals(pHashMain, sHashMain)){
+        indexRecord.push(startIndex);
+      }
+      endIndex++;
+    }
+    return indexRecord;
+}
+
+//console.log(findAnagrams(
+  //  "cbaebabacd",
+   // "abc"));
 
 
 
