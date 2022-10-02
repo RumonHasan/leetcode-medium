@@ -1997,6 +1997,45 @@ const findAnagrams = (s, p)=>{
 
 
 
+const maxVowels = (s, k)=>{
+    const sArray = s.split('');
+    const vowelObject = {'a': 0, 'e': 0, 'i': 0, 'o': 0, 'u': 0};
+    let start = 0;
+    let end = 0;
+    let maxVowels = 0;
+    let tempIndex = 0;
+    // setting the range
+    while(tempIndex < k){
+        // vowel hashing
+        if(sArray[tempIndex] in vowelObject){
+            vowelObject[sArray[tempIndex]]++;
+            maxVowels += vowelObject[sArray[tempIndex]];
+        }
+        tempIndex++;
+    }
+    // starting from next range
+    end = k;
+    while(end < sArray.length){
+        if(sArray[end] in vowelObject){
+            vowelObject[sArray[end]]++;
+        }
+        if(sArray[start] in vowelObject){
+            vowelObject[sArray[start]]--;
+        }
+        start++;
+        const vowelVals = Object.values(vowelObject);
+        const totalVowels = vowelVals.reduce((a, b)=> a + b);
+        maxVowels = Math.max(maxVowels, totalVowels);
+        end++;
+    }
+    return maxVowels;
+}
+
+//console.log(maxVowels("abciiidef", 3))
+
+
+
+
 
 
 
