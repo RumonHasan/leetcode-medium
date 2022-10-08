@@ -2119,6 +2119,7 @@ const findLength = (nums1, nums2)=>{
 // easy problem
 const matrixReshape = (mat, r, c)=>{
     //flatten the matrix;
+    if(r * c !== mat[0].length * mat.length) return mat;
     let flattenedMatrix = new Array(mat[0].length * mat.length).fill(0);
     let tempIndex = 0;
     for(let i = 0; i < mat.length; i++){
@@ -2148,6 +2149,8 @@ const matrixReshape = (mat, r, c)=>{
 }
 
 //console.log(matrixReshape([[1,2]], 2, 4));
+
+
 
 
 
