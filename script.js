@@ -2031,7 +2031,128 @@ const maxVowels = (s, k)=>{
     return maxVowels;
 }
 
-//console.log(maxVowels("abciiidef", 3))
+//console.log(maxVowels("abciiidef", 3));
+
+
+// longest substring with k repeated characters or more
+const longestSubstring = (s, k)=>{
+    console.log(s);
+    let mainHash = {};
+    for(let index in s){
+        mainHash[s[index]] ? mainHash[s[index]]++ : mainHash[s[index]] = 1;
+    }
+    console.log(mainHash);
+    let maxLength = 0;
+    let start = 0;
+    let vals = Object.values(mainHash);
+    if(vals.every((val)=> val >= k)){
+        return s.length;
+    }
+
+    // traversing string;
+    for(let i = 0; i < s.length; i++){
+        if(mainHash[s[i]] < k){
+            const slice = s.slice(start, i);
+            console.log(slice);
+            maxLength = Math.max(slice.length , maxLength);
+            start = i + 1;
+        }
+    }
+
+    return maxLength;
+}   
+
+//console.log(longestSubstring("ababacb",
+//3));
+
+
+// max number of Ks or Fs in the answer key
+
+const maxConsecutiveAnswers = (answerKey, k)=>{
+    console.log(answerKey.split(''), k);
+    let end = 0;
+    let start = 0;
+    let maxAnswers = 0;
+    let tempCount = 0;
+    // True combinations but replacing for F
+    while(end < answerKey.length){
+        if(answerKey[end] === 'T'){
+            tempCount++;
+        }
+         // reduce window when count is bigger than k
+        while(tempCount > k){
+            if(answerKey[start] === 'T') tempCount--;
+            start++;
+        }
+        maxAnswers = Math.max((end - start) + 1, maxAnswers)
+        end++;
+    }
+    end = 0;
+    start = 0;
+    tempCount = 0;
+    while(end < answerKey.length){
+        if(answerKey[end] === 'F'){
+            tempCount++;
+        }
+         // reduce window when count is bigger than k
+        while(tempCount > k){
+            if(answerKey[start] === 'F') tempCount--;
+            start++;
+        }
+        maxAnswers = Math.max((end - start) + 1, maxAnswers)
+        end++;
+    }
+    return maxAnswers;
+}
+
+//console.log(maxConsecutiveAnswers("TTFFFTTF", 2));
+
+// do it later 
+const findLength = (nums1, nums2)=>{
+    console.log(nums1, nums2);
+    
+}
+
+// console.log(findLength([1,2,3,2,1],[3,2,1,4,7]));
+
+
+// easy problem
+const matrixReshape = (mat, r, c)=>{
+    //flatten the matrix;
+    let flattenedMatrix = new Array(mat[0].length * mat.length).fill(0);
+    let tempIndex = 0;
+    for(let i = 0; i < mat.length; i++){
+        for(let j = 0; j < mat[i].length; j++){
+            flattenedMatrix[tempIndex] = mat[i][j];
+            tempIndex++;
+        }
+    }
+    // new matrix construction
+    let newMatrix = new Array(r).fill(0);
+    // fill columns
+    for(let i = 0 ; i < newMatrix.length; i++){
+        newMatrix[i] = new Array(c).fill(0);
+    }
+    // filling new matrix
+    let index = 0;
+    for(let i = 0; i < r; i++){
+        for(let j = 0; j < c; j++){
+            newMatrix[i][j] = flattenedMatrix[index];
+            index++;
+            // mat cannot be contructed
+            if(newMatrix[i][j] === undefined) return mat;
+        }
+    }
+    return newMatrix;
+
+}
+
+//console.log(matrixReshape([[1,2]], 2, 4));
+
+
+
+
+
 
 
 
