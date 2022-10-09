@@ -2147,8 +2147,71 @@ const matrixReshape = (mat, r, c)=>{
     return newMatrix;
 
 }
-
 //console.log(matrixReshape([[1,2]], 2, 4));
+
+
+
+// max frequencey element
+
+const maxFrequence = (nums, k)=>{
+    nums.sort((a, b)=> a- b);
+    console.log(nums);
+    let end = 0;
+    let start = 0;
+    let total = 0;
+    let maxLen = 0;
+
+    while(end < nums.length){
+        total += nums[end];
+        // window control 
+        while(nums[end] * (end - start + 1) > total + k){
+            total -= nums[start];
+            start++;
+        }
+
+        maxLen = Math.max(maxLen, (end - start) + 1);
+        end++;
+    }
+   return maxLen;
+
+}
+
+//console.log(maxFrequence([1,1,1,2,2,4], 2));
+
+
+const minSubarrayLenAlternate = (nums, target)=>{
+    let end = 0;
+    let start = 0;
+    let total = 0;
+    let minLen = Infinity;
+    while(end < nums.length){
+        total += nums[end];
+        while(total >= target){
+            minLen = Math.min(minLen, (end - start + 1));
+            total -= nums[start];
+            start++;
+        }
+        end++;
+    }
+    return minLen === Infinity ? 0 : minLen;
+}
+
+//console.log(minSubarrayLenAlternate([2,3,1,2,4,3], 7))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
