@@ -2196,7 +2196,70 @@ const minSubarrayLenAlternate = (nums, target)=>{
     return minLen === Infinity ? 0 : minLen;
 }
 
-//console.log(minSubarrayLenAlternate([2,3,1,2,4,3], 7))
+//console.log(minSubarrayLenAlternate([2,3,1,2,4,3], 7));
+
+const subarraySumAlternate = (nums, k)=>{
+    let end = 0;
+    let hash = {};
+    let totalSubs = 0;
+    let sum = 0;
+    hash[0] = 1;
+    while(end < nums.length){
+        sum += nums[end];
+        const sumPref = sum - k;
+        console.log(sumPref);
+
+        if(hash[sumPref]){
+            totalSubs += hash[sumPref];
+        }
+        // populate hash
+        if(hash[sum]){
+            hash[sum]++;
+        }else{
+            hash[sum] = 1;
+        }
+
+        end++;
+        
+    }
+    return totalSubs;
+
+}
+
+//console.log(subarraySumAlternate([1,2,3], 3));
+
+
+const numberOfSubstrings = (s)=>{
+    console.log(s);
+    let hash = {'a': -1, 'b':-1, 'c': -1};
+    let end = 0;
+    let totalCounter = 0;
+    while(end < s.length){
+        if(s[end] in hash){
+            hash[s[end]] = end;
+        }
+        let vals = Object.values(hash);
+        let min = Math.min(...vals);
+        if(!vals.some((singleVal)=> singleVal < -1)){
+            totalCounter += min + 1;
+        }
+        end++;
+    }
+    return totalCounter;
+}
+
+//console.log(numberOfSubstrings("abcabc"));
+
+/*
+
+    1) min = 0; total = min + 1 = 1;
+    2) min = 1; total += 1 + 1 + 1 = 3;
+    3) min = 2; total += 3 + 2 + 1 = 6
+    4) min = 3; total += 6 + 3 + 1 = 10;
+
+    main logic
+
+*/
 
 
 
