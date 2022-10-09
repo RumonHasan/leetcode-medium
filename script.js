@@ -2230,7 +2230,6 @@ const subarraySumAlternate = (nums, k)=>{
 
 
 const numberOfSubstrings = (s)=>{
-    console.log(s);
     let hash = {'a': -1, 'b':-1, 'c': -1};
     let end = 0;
     let totalCounter = 0;
@@ -2260,6 +2259,33 @@ const numberOfSubstrings = (s)=>{
     main logic
 
 */
+
+
+// minimum card pickup
+const minimumCardPickup = (cards)=>{
+    let hash = {};
+    let start = 0;
+    let end = 0;
+    let minLength = Infinity;
+    while(end < cards.length){
+        if(hash[cards[end]]){
+            hash[cards[end]]++;
+        }else{
+            hash[cards[end]] = 1;
+        }
+        while(hash[cards[end]] > 1){
+            minLength = Math.min(minLength, (end - start + 1));
+            if(hash[cards[start]]){
+                hash[cards[start]]--;
+            }
+            start++;
+        }
+        end++;
+    }
+    return minLength === Infinity ? -1: minLength;
+}
+
+//console.log(minimumCardPickup([3,4,2,3,4,7]))
 
 
 
