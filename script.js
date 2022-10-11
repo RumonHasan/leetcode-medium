@@ -2285,7 +2285,45 @@ const minimumCardPickup = (cards)=>{
     return minLength === Infinity ? -1: minLength;
 }
 
-//console.log(minimumCardPickup([3,4,2,3,4,7]))
+//console.log(minimumCardPickup([3,4,2,3,4,7]));
+
+
+
+const longestBeautifulSubstring = (word)=>{
+    console.log(word);
+    let end = 0;
+    let vowelString = 'aeiou';
+    let maxLength = 0;
+
+    while(end < word.length){
+        if(word[end] === 'a'){
+            let eventualEndIndex = end;
+            let check = true;
+            for(let i = 0; i < 5; i++){
+                 // if the vowel is not equal then breaks loop
+                 if(word[eventualEndIndex] !== vowelString[i]){
+                    check = false;
+                    break;
+                }
+                // check through whole string for repeated letters
+                while(eventualEndIndex < word.length && word[eventualEndIndex] == vowelString[i]){
+                    // if the letter is
+                    eventualEndIndex++;
+                }
+            }
+            if(check){
+                maxLength = Math.max(maxLength, (eventualEndIndex - end));   
+            }
+            // jumping end to the next a location
+            end = eventualEndIndex - 1;
+        }
+        end++;
+    }
+    return maxLength;
+
+}
+
+console.log(longestBeautifulSubstring("aeiaaioaaaaeiiiiouuuooaauuaeiu"))
 
 
 
