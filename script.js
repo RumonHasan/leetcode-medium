@@ -2434,7 +2434,7 @@ const longestMountainRetry = (arr)=>{
 const numSubarraysWithSum = (nums, goal)=>{
     console.log(nums);
     let subCounter = 0;
-    
+
     // two pointer solution
     for(let end = 0; end < nums.length; end++){
         let total = 0;
@@ -2450,7 +2450,53 @@ const numSubarraysWithSum = (nums, goal)=>{
    return subCounter;
 }
 
-//console.log(numSubarraysWithSum([1,0,1,0,1], 2))
+//console.log(numSubarraysWithSum([1,0,1,0,1], 2));
+
+
+
+// longest uncommon subsequence I pre 
+
+const findLUSlength = (a, b)=>{
+    if(a === b) return -1;
+
+    return Math.max(a.length, b.length);
+}
+
+//console.log(findLUSlength("aba", "cdc"));
+
+
+const findSubarrays = (nums)=>{
+    console.log(nums);
+    let subLen = 2; 
+    let end = 0;
+    let start = 0;
+    let sum = 0;
+    let tempIndex = 0;
+    let collection = {};
+
+    while(tempIndex < subLen){
+        sum += nums[tempIndex];
+        tempIndex++;
+    }
+    collection[sum] = 1;
+    end = subLen;
+    while(end < nums.length){
+        sum -= nums[start];
+        sum += nums[end];
+
+        if(collection[sum]){
+            return true;
+        }else{
+            collection[sum] = 1;
+        }
+
+        start++;
+        end++;
+    }
+    return false;
+}
+
+console.log(findSubarrays([77,95,90,98,8,100,88,96,6,40,86,56,98,96,40,52,30,33,97,72,54,15,33,77,78,8,21,47,99,48]))
 
 
 
