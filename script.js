@@ -2287,14 +2287,11 @@ const minimumCardPickup = (cards)=>{
 
 //console.log(minimumCardPickup([3,4,2,3,4,7]));
 
-
-
 const longestBeautifulSubstring = (word)=>{
     console.log(word);
     let end = 0;
     let vowelString = 'aeiou';
     let maxLength = 0;
-
     while(end < word.length){
         if(word[end] === 'a'){
             let eventualEndIndex = end;
@@ -2323,7 +2320,137 @@ const longestBeautifulSubstring = (word)=>{
 
 }
 
-console.log(longestBeautifulSubstring("aeiaaioaaaaeiiiiouuuooaauuaeiu"))
+//console.log(longestBeautifulSubstring("aeiaaioaaaaeiiiiouuuooaauuaeiu"));
+
+// halted
+const countVowelsSubstrings = (word)=>{
+    console.log(word);
+    let end = 0;
+    let vowelHash = {'a': true, 'i': true, 'e':true, 'o':true, 'u':true};
+    let vowelArray = ['a', 'i', 'e', 'o', 'u'];
+    let counter = 0;
+
+    while(end < word.length){
+        if(vowelHash[word[end]]){
+            let eventualEnd = end;
+            while(eventualEnd < word.length && vowelHash[word[eventualEnd]]){
+                eventualEnd++;
+            }
+            console.log(end, eventualEnd);
+            const vowelSlice = word.slice(end, eventualEnd);
+            console.log(vowelSlice);
+            let sliceHash = {};
+            let sliceEnd = 0;
+            let sliceStart = 0;
+            while(sliceEnd < vowelSlice.length){
+                sliceHash[vowelSlice[sliceEnd]] ? sliceHash[vowelSlice[sliceEnd]]++ : sliceHash[vowelSlice[sliceEnd]] = 1;
+                while(sliceHash['a'] > 0 && sliceHash['i'] > 0 && sliceHash['u'] > 0 && sliceHash['e'] > 0 && sliceHash['o'] > 0){
+                    console.log(sliceEnd, sliceStart);
+                    counter++;
+                    if(sliceHash[vowelSlice[sliceStart]] > 0){
+                        sliceHash[vowelSlice[sliceStart]]--;
+                    }
+                    sliceStart++;
+                    
+                }
+                sliceEnd++;
+            }
+            end = eventualEnd;
+        }
+        end++;
+    }
+    console.log(counter);
+
+}
+
+//console.log(countVowelsSubstrings("cuaieuouac"));
+
+
+
+// can swap at most two of the characters in order to find the longest repeated character substring
+// const maxRepOpt = (text)=>{
+//     console.log(text);
+//     // edge case for if the letters are only one type then return length
+//     if(text.split('').every((letter)=> letter === text[0])){
+//         return text.length;
+//     };
+//     // note u can swipe at most two characters
+
+
+// }
+
+// console.log(maxRepOpt("aabaabaa"));
+
+
+const lengthOfLastWord = (s)=>{
+    const array = s.split(' ');
+    // traversing from the back;
+    for(let i = array.length - 1; i >= 0; i--){
+        if(array[i] !== ''){
+            return array[i].length;
+        }
+    }
+}
+
+//console.log(lengthOfLastWord("   fly me   to   the moon  "));
+
+
+const longestMountainRetry = (arr)=>{
+    let maxCount = 0;
+    if(arr.length < 3) return 0;
+    let end = 0;
+    //using one pass loop to get the answers
+    while(end < arr.length){
+        // if bigger then enter
+        let count = 1; // since two elements by default
+        let up = false;
+        let down = false;
+        if(arr[end] < arr[end + 1]){
+            // enter the loop when bigger
+            up = true;
+            while(arr[end] < arr[end + 1]){
+                count++;
+                end++;
+            }
+            while(arr[end] > arr[end + 1]){
+                count++;
+                end++
+                down = true;
+            }
+            if(count > 2 && up && down){
+                maxCount = Math.max(maxCount, count);
+            }
+        }else{
+            end++;
+        }   
+    }
+    return maxCount;
+}
+
+//console.log(longestMountainRetry([875,884,239,731,723,685]));
+
+
+// binary array sum with goal
+const numSubarraysWithSum = (nums, goal)=>{
+    console.log(nums);
+    let subCounter = 0;
+    
+    // two pointer solution
+    for(let end = 0; end < nums.length; end++){
+        let total = 0;
+        for(let start = end; start < nums.length; start++){
+            // const slice = nums.slice(end, start + 1);
+            total += nums[start];
+            if(total === goal){
+                subCounter++;
+            }
+        }
+    }
+
+   return subCounter;
+}
+
+//console.log(numSubarraysWithSum([1,0,1,0,1], 2))
 
 
 
