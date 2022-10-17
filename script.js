@@ -2464,40 +2464,38 @@ const findLUSlength = (a, b)=>{
 
 //console.log(findLUSlength("aba", "cdc"));
 
+//console.log(findSubarrays([77,95,90,98,8,100,88,96,6,40,86,56,98,96,40,52,30,33,97,72,54,15,33,77,78,8,21,47,99,48]));
 
-const findSubarrays = (nums)=>{
-    console.log(nums);
-    let subLen = 2; 
+
+const findSubarraysPractise = (nums)=>{
+    let collection = {};
     let end = 0;
     let start = 0;
-    let sum = 0;
     let tempIndex = 0;
-    let collection = {};
-
-    while(tempIndex < subLen){
-        sum += nums[tempIndex];
+    let defLen = 2;
+    let sum = 0;
+    while(tempIndex < defLen){
+        sum += nums[tempIndex]
         tempIndex++;
-    }
+    };
     collection[sum] = 1;
-    end = subLen;
+    end = defLen;
+    // sliding addition
     while(end < nums.length){
-        sum -= nums[start];
-        sum += nums[end];
-
+        // substract the sum and add one
+        sum = (sum - nums[start]) + nums[end];
         if(collection[sum]){
             return true;
         }else{
             collection[sum] = 1;
         }
-
         start++;
         end++;
     }
     return false;
 }
 
-console.log(findSubarrays([77,95,90,98,8,100,88,96,6,40,86,56,98,96,40,52,30,33,97,72,54,15,33,77,78,8,21,47,99,48]))
-
+//console.log(findSubarraysPractise([4,2,4]))
 
 
 
