@@ -2500,27 +2500,19 @@ const findSubarraysPractise = (nums)=>{
 
 // set approach and recording the previous value;
 const canPartition = (nums)=>{
-    console.log(nums);
     let numSet = new Set();
     numSet.add(0); // initial default value;
     let targetVal = nums.reduce((a, b)=> a + b) / 2;
-
     // iterating and storing the sum
     for(let i = nums.length - 1; i >= 0; i--){
         let numSetCopy = new Set(numSet);
-        let sum = 0;
         numSet.forEach((element)=>{
-             sum = element + nums[i];
-             numSetCopy.add(sum);
-             numSetCopy.add(element);
+             numSetCopy.add(element + nums[i]);
         });
         numSet = numSetCopy;
+        if(numSet.has(targetVal)) return true;
     }
-    if(numSet.has(targetVal)){
-        return true;
-    }else{
-        return false;
-    }
+    return false;
 }
 
 //console.log(canPartition([1,5,11,5]))
