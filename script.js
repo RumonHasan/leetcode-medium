@@ -2515,7 +2515,58 @@ const canPartition = (nums)=>{
     return false;
 }
 
-//console.log(canPartition([1,5,11,5]))
+//console.log(canPartition([1,5,11,5]));
+
+
+const zigzagConversion = (s, numRows)=>{
+    console.log(s, numRows);
+    if(numRows === 1) return s;
+    // let finalString = '';
+    // formula way
+    // for(let i = 0; i < numRows; i++){
+    //     let incrementalChange = (numRows - 1) * 2;
+    //     for(let j = i; j < s.length; j+= incrementalChange){
+    //         finalString += s[j];
+    //         if(i > 0 && i < numRows - 1 
+    //             // found this online for the middle rows
+    //             && j + incrementalChange - 2 * i < s.length){
+    //            // online fuckers man are genius
+    //             finalString += s[j + incrementalChange - 2 * i]
+    //         }
+    //     }
+    // }
+
+    // alternate way;
+
+    // let zigZagString = Array(numRows).fill('');
+
+    // let count = 0;
+    // let zigDown = true;
+    // for(let i = 0; i < s.length; i++){
+    //     zigZagString[count] += s[i];
+    //     if(zigDown){
+    //         count++;
+    //     }else{
+    //         count--;
+    //     }
+    //     if(count === numRows){
+            
+    //         zigDown = false;
+    //         count-=2;
+    //         console.log(count);
+    //     }
+    //     if(count === 0){
+    //         zigDown = true;
+    //     }
+    //     console.log(zigZagString)
+    // }
+    
+}
+
+//console.log(zigzagConversion("PAYPALISHIRING", 4))
+
+
+
 
 
 
