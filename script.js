@@ -2563,7 +2563,29 @@ const zigzagConversion = (s, numRows)=>{
     
 }
 
-//console.log(zigzagConversion("PAYPALISHIRING", 4))
+//console.log(zigzagConversion("PAYPALISHIRING", 4));
+
+
+// arranging the frequency in decreasing order
+const frequencySort =(s)=>{
+    let hash = {};
+    let finalString = '';
+    for(let index in s){
+        hash[s[index]] ? hash[s[index]]++ : hash[s[index]] = 1
+    }
+    let sortableArray = [];
+    for(let key in hash){
+        sortableArray.push([key, hash[key]]);
+    };
+    let sortedArray = sortableArray.sort((a, b)=> b[1] - a[1]);
+    // creating the string 
+    for(let i = 0; i < sortedArray.length; i++){
+        finalString += sortedArray[i][0].repeat(sortedArray[i][1])
+    }
+    return finalString;
+}
+
+//console.log(frequencySort('tree'));
 
 
 
