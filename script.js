@@ -2642,7 +2642,38 @@ const topKFrequent = (words, k)=>{
 }   
 
 // console.log(topKFrequent(["i","love","leetcode","i","love","coding"],
-// 3))
+// 3));
+
+
+const replaceWords = (dictionary, sentence)=>{
+    const sentenceArray = sentence.split(' ');
+    // console.log('main',dictionary, sentenceArray);
+    for(let i = 0; i < sentenceArray.length; i++){
+        let tempStack = [];
+        for(let j = 0; j < dictionary.length; j++){
+            if(sentenceArray[i].startsWith(dictionary[j])){
+                tempStack.push({root:dictionary[j], length: dictionary[j].length})
+            }
+        }
+        if(tempStack.length <= 0){
+            continue;
+        }
+        let sortedStack = tempStack.sort((a, b)=> a.length - b.length);
+        sentenceArray[i] = sortedStack[0].root;
+    }
+    let result = '';
+    for(let i = 0; i < sentenceArray.length; i++){
+        result += sentenceArray[i] + ' ';
+    }
+    return result.slice(0, -1);
+}
+
+// console.log(replaceWords(["a", "aa", "aaa", "aaaa"],
+// "a aa a aaaa aaa aaa aaa aaaaaa bbb baba ababa"))
+
+
+
+
 
 
 
