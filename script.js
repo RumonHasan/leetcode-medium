@@ -2588,6 +2588,65 @@ const frequencySort =(s)=>{
 //console.log(frequencySort('tree'));
 
 
+const multiplyStrings = (num1, num2)=>{
+    const result = new Array(num1.length + num2.length).fill(0);
+    //main iteration in reverse order 
+    // orientation of multipication
+    // 456
+    // 123
+    //------
+    // reverse iteration
+    for(let i = num1.length - 1; i > -1; i--){
+        for(let j = num2.length - 1; j > -1; j--){
+            // console.log(num1[i],num2[j]);
+            const singleProd = num1[i] * num2[j];
+            let modVal = singleProd % 10;
+            let quotient = Math.floor(singleProd / 10);
+            result[i + j] += modVal;
+            result[i + j + 1] += quotient;
+
+        }
+    }
+    let finalResult = result.reverse();
+    console.log(finalResult);
+}
+
+// console.log(multiplyStrings("123", "456"));
+
+
+// getting the top K most frequent element
+const topKFrequent = (words, k)=>{
+    const stack = [];
+    let wordMap = new Map();
+    // get the occurence using map
+    for(let index in words){
+        if(wordMap.has(words[index])){
+            wordMap.set(words[index], wordMap.get(words[index]) + 1);
+        }else{
+            wordMap.set(words[index], 1);
+        }
+    }
+    // array conversion then reenter new map
+    const sortedMap = new Map([...wordMap.entries()].sort((a, b)=> b[1] - a[1]));
+    for(let [key, _] of sortedMap){
+        stack.push(key);
+    }
+    let final = stack.sort((a, b)=> {
+        if(sortedMap.get(b) == sortedMap.get(a)){
+            return a.localeCompare(b);
+        }else{
+            return b - a;
+        }
+    });
+    return final.slice(0, k);
+}   
+
+// console.log(topKFrequent(["i","love","leetcode","i","love","coding"],
+// 3))
+
+
+
+
 
 
 
