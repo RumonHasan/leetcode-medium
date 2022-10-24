@@ -2704,7 +2704,6 @@ const maxNonOverlapping = (nums, target)=>{
 
 // min steps to make t and anagram of s
 const minStepsAnagram = (s, t)=>{
-    console.log(s, t);
     let sHash = {};
     let tHash = {};
     for(let index in s){
@@ -2730,7 +2729,33 @@ const minStepsAnagram = (s, t)=>{
     return count;
 }
 
-//console.log(minStepsAnagram("leetcode","practice"))
+//console.log(minStepsAnagram("leetcode","practice"));
+
+
+// subarray ranges
+const subArrayRanges = (nums)=>{
+    console.log(nums);
+    // nested approach
+    let total = 0;
+    let min = Infinity;
+    let max = -Infinity;
+    for(let i = 0; i < nums.length; i++){
+        // specifying the starting vals
+        min = nums[i];
+        max = nums[i];
+        for(let j = i; j < nums.length; j++){
+             min = Math.min(min, nums[j]);
+             max = Math.max(max, nums[j]);
+            const difference = max - min;
+            total += difference;
+        }
+    }
+    return total;
+}
+
+//console.log(subArrayRanges([1,2,3]))
+
+
 
 
 
