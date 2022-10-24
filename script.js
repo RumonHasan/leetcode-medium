@@ -2619,7 +2619,7 @@ const multiplyStrings = (num1, num2)=>{
     return newSlice.toString().split(',').join('');
 }
 
- console.log(multiplyStrings("9", "99"));
+// console.log(multiplyStrings("9", "99"));
 
 
 // getting the top K most frequent element
@@ -2677,7 +2677,63 @@ const replaceWords = (dictionary, sentence)=>{
 }
 
 // console.log(replaceWords(["a", "aa", "aaa", "aaaa"],
-// "a aa a aaaa aaa aaa aaa aaaaaa bbb baba ababa"))
+// "a aa a aaaa aaa aaa aaa aaaaaa bbb baba ababa"));
+
+
+// max non overlapping nums
+const maxNonOverlapping = (nums, target)=>{
+   let set = new Set();
+   let count = 0;
+   let total = 0;
+
+   for(let num of nums){
+    total += num;
+    if(set.has(total - target) || total === target){
+        count++;
+        set.clear();
+        total = 0;
+    }else{
+        set.add(total);
+    }
+   }
+   return count;
+}
+
+//console.log(maxNonOverlapping([1,1,1,1], 2));
+
+
+// min steps to make t and anagram of s
+const minStepsAnagram = (s, t)=>{
+    console.log(s, t);
+    let sHash = {};
+    let tHash = {};
+    for(let index in s){
+        sHash[s[index]] ? sHash[s[index]]++ : sHash[s[index]] = 1;
+        tHash[t[index]] ? tHash[t[index]]++ :tHash[t[index]] = 1;
+    }
+    let count = 0;
+    // loop and check 
+    let sVals = Object.keys(sHash);
+    for(let i = 0; i < sVals.length; i++){
+        // checking if frequency of t is less
+        const sLetter = sVals[i];
+        if(tHash[sLetter]){
+            if(tHash[sLetter] < sHash[sLetter]){
+                const difference = sHash[sLetter] - tHash[sLetter];
+                count += difference;
+            }
+        }
+       else{
+            count += sHash[sLetter];
+        }
+    }
+    return count;
+}
+
+//console.log(minStepsAnagram("leetcode","practice"))
+
+
+
 
 
 
