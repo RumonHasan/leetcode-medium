@@ -2589,29 +2589,37 @@ const frequencySort =(s)=>{
 
 
 const multiplyStrings = (num1, num2)=>{
+    if(num1 === '0' || num2 === '0') return '0';
     const result = new Array(num1.length + num2.length).fill(0);
-    //main iteration in reverse order 
-    // orientation of multipication
-    // 456
-    // 123
-    //------
-    // reverse iteration
-    for(let i = num1.length - 1; i > -1; i--){
-        for(let j = num2.length - 1; j > -1; j--){
+    num1 = num1.split('').reverse().join('');
+    num2 = num2.split('').reverse().join('');
+    for(let i = 0; i < num1.length; i++){
+        for(let j = 0; j< num2.length; j++){
             // console.log(num1[i],num2[j]);
-            const singleProd = num1[i] * num2[j];
-            let modVal = singleProd % 10;
-            let quotient = Math.floor(singleProd / 10);
-            result[i + j] += modVal;
-            result[i + j + 1] += quotient;
+            const singleProd = parseInt(num1[i]) * parseInt(num2[j]);
+            result[i + j] += singleProd;
+            result[i + j + 1] += Math.floor(result[i + j] / 10);
+            result[i + j] = result[i + j] % 10; 
 
         }
     }
     let finalResult = result.reverse();
     console.log(finalResult);
+    let index = 0;
+    let newSlice = [];
+    // no leading zeroes
+    if(finalResult[0] !== 0){
+        return finalResult.toString().split(',').join('');
+    }
+    // for leading zeroes
+    while(finalResult[index] === 0){
+        index++;
+        newSlice = finalResult.slice(index, finalResult.length);
+    }
+    return newSlice.toString().split(',').join('');
 }
 
-// console.log(multiplyStrings("123", "456"));
+ console.log(multiplyStrings("9", "99"));
 
 
 // getting the top K most frequent element
