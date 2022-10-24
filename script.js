@@ -2753,7 +2753,25 @@ const subArrayRanges = (nums)=>{
     return total;
 }
 
-//console.log(subArrayRanges([1,2,3]))
+//console.log(subArrayRanges([1,2,3]));
+
+
+const sumSubarrayMins = (arr)=>{
+    console.log(arr);
+    let min = Infinity;
+    let total = 0;
+    const MOD = 1e9 + 7;
+    for(let i = 0; i < arr.length; i++){
+        min = arr[i];
+        for(let j = i; j < arr.length ; j++){
+            min = Math.min(min, arr[j]);
+            total += min;
+        }
+    }
+    return total % MOD;
+}
+
+//console.log(sumSubarrayMins([3,1,2,4]))
 
 
 
