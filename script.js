@@ -2757,7 +2757,6 @@ const subArrayRanges = (nums)=>{
 
 
 const sumSubarrayMins = (arr)=>{
-    console.log(arr);
     let min = Infinity;
     let total = 0;
     const MOD = 1e9 + 7;
@@ -2771,7 +2770,52 @@ const sumSubarrayMins = (arr)=>{
     return total % MOD;
 }
 
-//console.log(sumSubarrayMins([3,1,2,4]))
+//console.log(sumSubarrayMins([3,1,2,4]));
+
+
+const numMatchingSubseq = (s, words)=>{
+    // check words
+    // check words
+    let foundCounter = 0;
+    for(let i = 0; i < words.length; i++){
+        let word = words[i];
+        let indexCollection = [];
+        for(let j = 0; j < words[i].length; j++){
+            let startIndex = 0;
+            if(indexCollection.length > 0){
+                startIndex = indexCollection[indexCollection.length - 1];
+            }
+            let indexes = s.indexOf(word[j], j === 0 ? startIndex : startIndex + 1);
+            indexCollection.push(indexes);
+        }
+        if(indexCollection.length === 0) continue;
+        if(indexCollection.length === 1) {
+            foundCounter++;
+            continue;
+        }
+        let verifyIndex = false;
+        if(indexCollection.length > 1){
+            for(let k = 1; k < indexCollection.length; k++){
+                if(indexCollection[k] === indexCollection[k - 1]){
+                    verifyIndex = false;
+                    break;
+                }
+                if(indexCollection[k] >= indexCollection[k - 1]){
+                    verifyIndex = true;
+                }else{
+                    verifyIndex = false;
+                    break;
+                }
+            }
+        }
+        if(verifyIndex) foundCounter++;
+    }
+    return foundCounter;
+    
+}
+
+//console.log(numMatchingSubseq("btovxbkumc",
+//["btovxbku","to","zueoxxxjme","yjkclbkbtl"]))
 
 
 
