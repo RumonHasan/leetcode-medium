@@ -2815,7 +2815,75 @@ const numMatchingSubseq = (s, words)=>{
 }
 
 //console.log(numMatchingSubseq("btovxbkumc",
-//["btovxbku","to","zueoxxxjme","yjkclbkbtl"]))
+//["btovxbku","to","zueoxxxjme","yjkclbkbtl"]));
+
+
+// divisor num k length;
+const divisorSubstrings = (num, k)=>{
+    const stringNum = num.toString();
+    let countDivisor = 0;
+    let endIndex = k;
+    let startIndex = 0;
+    // first check 
+    const numSlice = stringNum.slice(0, k);
+    if(num % parseInt(numSlice) === 0) countDivisor++;
+    // other substrings 
+    while(endIndex < stringNum.length){
+        startIndex++;
+        const numSlice = parseInt(stringNum.slice(startIndex, endIndex + 1));
+        if(num % numSlice === 0)countDivisor++;
+        endIndex++;
+    }
+    return countDivisor;
+
+}
+
+//console.log(divisorSubstrings(430043, 2));
+
+
+const longestOnesRetry = (nums, k)=>{
+    let end = 0;
+    let start = 0;
+    let zeros = 0;
+    let maxLen = 0;
+    while(end < nums.length){
+        nums[end] === 0 && zeros++;
+        while(zeros > k){
+            nums[start] === 0 && zeros--;
+            start++;
+        }
+        maxLen = Math.max(maxLen, (end + 1) - start);
+        end++;
+    }
+    return maxLen;
+}
+
+//console.log(longestOnesRetry([1,1,1,0,0,0,1,1,1,1,0], 2));
+
+const minSetSize = (arr)=>{
+    if(arr.every((num)=> num === arr[0])) return 1;
+    let numMap = new Map();
+    for(let index in arr){
+        if(numMap.has(arr[index])){
+            numMap.set(arr[index], numMap.get(arr[index]) + 1);
+        }else{
+            numMap.set(arr[index], 1);
+        }
+    };
+    const sortedMap = Array.from(numMap.values()).sort((a, b)=> b - a);
+    // use the length to find out the calculations
+    let totalLen = arr.length;
+    let subTotal = 0;
+    let count = 0;
+    for(let i = 0; i < sortedMap.length; i++){
+        subTotal += sortedMap[i];
+        count++;
+        if(subTotal >= totalLen / 2) break;
+    }
+    return count;
+}
+//console.log(minSetSize([3,3,3,3,5,5,5,2,2,7]))
+
 
 
 
