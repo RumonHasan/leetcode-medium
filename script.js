@@ -2913,7 +2913,58 @@ const findLeastNumOfUniqueInts = (arr, k)=>{
     return postSet.size;
 }
 
-//console.log(findLeastNumOfUniqueInts([4,3,1,1,3,3,2], 3))
+//console.log(findLeastNumOfUniqueInts([4,3,1,1,3,3,2], 3));
+
+
+// getting the daily waiting temperatures from when it gets
+const dailyTemperatures = (temperatures) =>{
+    console.log(temperatures);
+    // main waiting day stack
+
+    // brute force but time limit exceeded
+    const bruteForceApproach = (stack)=>{
+        for(let i = 0; i < temperatures.length; i++){
+            let dayCount = 0;
+            let presentTemp = temperatures[i];
+            let index = 0;
+            const slice = temperatures.slice(i + 1, temperatures.length).length === 0 ? [0] : 
+            temperatures.slice(i + 1, temperatures.length);
+            // check something
+            while(index < slice.length){
+                if(slice[index] > presentTemp){
+                    dayCount++;
+                    stack[i] = dayCount;
+                    break;
+                }else{
+                    dayCount++;
+                    index++;
+                }
+            }
+        }
+        return stack;
+    }
+    // monotic stack array questions
+    // optimized
+    let res = new Array(temperatures.length).fill(0);
+    let stack = [];
+    for (let i = 0; i < temperatures.length; i++) {
+        while (stack.length > 0 
+               && temperatures[stack[stack.length-1]] < temperatures[i]) {
+             
+            let popped = stack.pop();
+            // console.log(stack, popped);
+            res[popped] = i-popped;
+        }
+        stack.push(i);
+    }
+    return res;
+
+}
+
+//console.log(dailyTemperatures([73,74,75,71,69,72,76,73]))
+
+
+
 
 
 
