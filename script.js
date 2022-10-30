@@ -2961,7 +2961,27 @@ const dailyTemperatures = (temperatures) =>{
 
 }
 
-//console.log(dailyTemperatures([73,74,75,71,69,72,76,73]))
+//console.log(dailyTemperatures([73,74,75,71,69,72,76,73]));
+
+
+const findLonely = (nums)=>{
+    let hash = {};   
+    const stack = [];
+    // let record ocurreunce
+    for(let index in nums){
+        hash[nums[index]] ? hash[nums[index]]++ : hash[nums[index]] = 1;
+    } 
+    for(let index = 0; index < nums.length; index++){
+        if(hash[nums[index]] && hash[nums[index]] < 2){
+            if(!hash[nums[index] - 1] && !hash[nums[index] + 1]){
+                stack.push(nums[index]);
+            }
+        }
+    }
+    return stack;
+}
+
+//console.log(findLonely([69, 45, 69]))
 
 
 
