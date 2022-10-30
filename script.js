@@ -2882,7 +2882,38 @@ const minSetSize = (arr)=>{
     }
     return count;
 }
-//console.log(minSetSize([3,3,3,3,5,5,5,2,2,7]))
+//console.log(minSetSize([3,3,3,3,5,5,5,2,2,7]));
+
+
+// find least number of unique integers are removing k Characters
+const findLeastNumOfUniqueInts = (arr, k)=>{
+    let hash = {};
+    for(let index in arr){
+        hash[arr[index]] ? hash[arr[index]]++ : hash[arr[index]] = 1;
+    }
+    const sortedNums = [];
+    for(let [key, value] of Object.entries(hash)){
+        sortedNums.push({num: parseInt(key), count: value});
+    }
+    const sortable = sortedNums.sort((a, b)=> a.count - b.count);
+    let postArray = [];
+    // optimal strategy involves removing the numbers with the smallest count:
+    for(let i = 0; i < sortable.length; i++){
+        const num  = sortable[i].num.toString();
+        const count = sortable[i].count;
+        for(let j = 0; j < count; j++){
+            postArray.push(parseInt(num));
+        }
+    }
+    // removing the k elements
+    for(let i = 0; i < k; i++){
+        postArray.shift();
+    }
+    let postSet = new Set([...postArray]);
+    return postSet.size;
+}
+
+//console.log(findLeastNumOfUniqueInts([4,3,1,1,3,3,2], 3))
 
 
 
