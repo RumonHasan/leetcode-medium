@@ -2981,7 +2981,77 @@ const findLonely = (nums)=>{
     return stack;
 }
 
-//console.log(findLonely([69, 45, 69]))
+//console.log(findLonely([69, 45, 69]));
+
+
+// longest beautiful substring of all vowels present;
+const longestBeautifulSubstringProblem = (word)=>{
+    console.log(word);
+
+    let vowelString = 'aeiou';
+    let maxWordLength = 0;
+    let end = 0;
+    // checking through the entire word in one pass.. need double index tracker
+    while(end < word.length){
+        if(word[end] === 'a'){
+            let checkIndex = end;
+            let check = true;
+            for(let i = 0; i < vowelString.length; i++){
+                if(word[checkIndex] !== vowelString[i]){
+                    check = false;
+                    break;
+                }
+                // for repeated characters
+                while(checkIndex < word.length && word[checkIndex] === vowelString[i]){
+                    checkIndex++;
+                }
+            }
+            if(check){
+                maxWordLength = Math.max(maxWordLength, (checkIndex - end) + 1);
+            }
+            end = checkIndex - 1;
+        }
+        end++;
+    }
+    return maxWordLength;
+}
+//console.log(longestBeautifulSubstringProblem("aaioaaaaeiiiiouuuooaauuaeiu"));
+
+
+const greatestLetter = (s)=>{
+    let checkSet = new Set();
+    for(let i = 0; i < s.length; i++){
+        const letter = s[i];
+        const sliceBefore = s.slice(0, i);
+        const sliceAfter = s.slice(i + 1, s.length);
+        const slice = [...sliceBefore, ...sliceAfter];
+
+        if(letter === letter.toLowerCase() && slice.includes(letter.toUpperCase())){
+            checkSet.add(letter.toUpperCase());
+        }else if(letter === letter.toUpperCase() && slice.includes(letter.toLowerCase())){
+            checkSet.add(letter.toUpperCase())
+        }
+    }
+    const checkArray = [...checkSet];
+    let charCodes = [];
+    let maxLetter = '';
+    const checkString = checkArray.join('');
+    for(let i = 0; i < checkString.length; i++){
+        const charCode = checkString.charCodeAt(i);
+        charCodes.push(charCode);
+    }
+    const maxCode = Math.max(...charCodes);
+    maxLetter = String.fromCharCode(maxCode)
+    return maxLetter === "\u0000" ? '' : maxLetter;
+    
+}
+
+//console.log(greatestLetter("arRAzFif"));
+
+
+
+
+
 
 
 
