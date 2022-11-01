@@ -3049,6 +3049,34 @@ const greatestLetter = (s)=>{
 //console.log(greatestLetter("arRAzFif"));
 
 
+// return top k frequent elements array 
+const topKFrequentElements = (nums,k)=>{
+    let hash = {};
+    for(let index in nums){
+        if(hash[nums[index]]){
+            hash[nums[index]]++;
+        }else{
+            hash[nums[index]] = 1 ;
+        }
+    }
+    // sorting the object based on their value
+    const newHashArray = Object.entries(hash).sort((a, b)=> b[1] - a[1]);
+    // getting the most frequent elements
+    let counter = 0;
+    let resultArray = [];
+
+    for(let i = 0; i < newHashArray.length; i++){
+        resultArray.push(parseInt(newHashArray[i][0]));
+        counter++;
+        if(counter === k) break;
+    }
+    return resultArray;
+    
+}
+
+//console.log(topKFrequentElements([1,1,1,2,2,3], 2))
+
+
 
 
 
