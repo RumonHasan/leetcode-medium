@@ -3074,7 +3074,27 @@ const topKFrequentElements = (nums,k)=>{
     
 }
 
-//console.log(topKFrequentElements([1,1,1,2,2,3], 2))
+//console.log(topKFrequentElements([1,1,1,2,2,3], 2));
+
+
+const singleNonDuplicate = (nums)=>{
+    let map = new Map();
+    for(let index in nums){
+        if(map.has(nums[index])){
+            // adding 1 if the element exists
+            map.set(nums[index], map.get(nums[index]) + 1);
+        }else{
+            map.set(nums[index], 1);
+        }
+    }
+    for(const [key, value] of map){
+        if(value === 1) return key;
+    }
+}
+
+//console.log(singleNonDuplicate([1,1,2,3,3,4,4,8,8]))
+
+
 
 
 
