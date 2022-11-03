@@ -3092,7 +3092,135 @@ const singleNonDuplicate = (nums)=>{
     }
 }
 
-//console.log(singleNonDuplicate([1,1,2,3,3,4,4,8,8]))
+//console.log(singleNonDuplicate([1,1,2,3,3,4,4,8,8]));
+
+
+var lengthOfLISCheck = function(nums) {
+    console.log(nums);
+    let lengthOfArray = new Array(nums.length).fill(1);
+    // getting the subsequence.. setting the limit for iterating till i
+    for(let i = 1; i < nums.length ; i++){
+        const endLimitNumber = nums[i]; // this should be the biggest
+        for(let j = 0; j < i; j++){
+            // if its smaller then ignore
+            if(nums[j] >= endLimitNumber){
+                continue;
+            }
+            if(endLimitNumber > nums[j]){
+                let originalLength = lengthOfArray[j];
+                lengthOfArray[i] = Math.max(lengthOfArray[i], originalLength + 1);
+            }
+        }
+    }
+   return Math.max(...lengthOfArray);
+};
+//console.log(lengthOfLISCheck([10,9,2,5,3,7,101,18]))
+
+// finding the number of longest substrings
+
+const findNumberOfLISCheck = (nums)=>{
+    console.log(nums);
+    if(nums.every((num)=> num === nums[0])) return nums.length;
+    const lengthOfLongest = new Array(nums.length).fill(1);
+    let collection = {};
+    for(let i = 1; i < nums.length; i++){
+        for(let j = 0; j < i; j++){
+            if(nums[i] <= nums[j]){
+                continue;
+            }
+            // replacing and recalculating the length
+            if(nums[j] < nums[i]){
+                lengthOfLongest[i] = Math.max(lengthOfLongest[i], lengthOfLongest[j] + 1);
+                console.log(lengthOfLongest[i]);
+                if(collection[lengthOfLongest[i]]){
+                    collection[lengthOfLongest[i]]++;
+                }else{
+                    collection[lengthOfLongest[i]] = 1;
+                }
+            }
+        }
+    }
+    console.log(lengthOfLongest, collection);
+    let maxLength = Math.max(...lengthOfLongest);
+    for(const [key, value] of Object.entries(collection)){
+        if(parseInt(key) === maxLength){
+            return value;
+        }
+    }
+    console.log(maxLength);
+}
+
+//console.log(findNumberOfLISCheck([1,2,4,3,5,4,7,2]));
+
+// 1 2 4 5 7
+// 1 2 3 5 7
+// 1 2 3 4 7
+
+
+// longest palindromic substring
+const longestPalindromeSubstring = (s)=>{
+    // checking all unique
+    let hash = {};
+    for(let index in s){
+        hash[s[index]] ? hash[s[index]]++ : hash[s[index]] = 1;
+    }
+    let values = Object.values(hash);
+    if(values.every((value)=> value === 1)){
+        return s[0];
+    }
+    let result = '';
+    // primary iteration...
+    if(s.length === 1) return s;
+    let palindromicCollection = [];
+    for(let i = 0; i < s.length; i++){
+        // initial indexes
+        let right = i + 1;
+        let left = i - 1;
+        // default result;
+        // for odd ranges
+        while(left >= 0 && right <= s.length - 1 && s[left] === s[right]){
+            const slice = s.slice(left, right + 1);
+            palindromicCollection.push(slice);
+            if(s[left] !== s[right]){
+                break;
+            }
+            right++;
+            left--;
+        }
+        // for even ranges
+        left = i;
+        right = i + 1;
+        while(left >= 0 && right <= s.length - 1 && s[left] === s[right]){
+            const slice = s.slice(left, right + 1);
+            palindromicCollection.push(slice);
+            if(s[left] !== s[right]){
+                break;
+            }
+            right++;
+            left--;
+        }
+    };
+    if(palindromicCollection.length === 0){
+        palindromicCollection.push(s[0]);
+    }
+    let maxLen = 0;
+    for(let i = 0; i < palindromicCollection.length ; i++){
+        maxLen = Math.max(maxLen, palindromicCollection[i].length);
+        if(maxLen === palindromicCollection[i].length){
+            result = palindromicCollection[i];
+        }
+    };
+    return result;
+}
+
+//console.log(longestPalindromeSubstring(
+//"abcda"))
+
+
+
+
+
+
 
 
 
