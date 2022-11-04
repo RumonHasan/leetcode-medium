@@ -3214,7 +3214,40 @@ const longestPalindromeSubstring = (s)=>{
 }
 
 //console.log(longestPalindromeSubstring(
-//"abcda"))
+//"abcda"));
+
+
+const countSubstrings = (s)=>{
+    console.log(s);
+    let counter = s.length;
+    let palindromicCollection = [];
+    for(let i = 0; i < s.length ; i++){
+        // odd combos
+        let right = i + 1;
+        let left = i - 1;
+        while(left >= 0 && right <= s.length - 1 && s[right] == s[left]){
+            const slice = s.slice(left, right + 1);
+            palindromicCollection.push(slice);
+            right++;
+            left--;
+        }
+        // even pairs
+        left = i;
+        right = i + 1;
+        while(left >= 0 && right <= s.length - 1 && s[right] == s[left]){
+            const slice = s.slice(left, right + 1);
+            palindromicCollection.push(slice);
+            right++;
+            left--;
+        }
+    }
+    return counter + palindromicCollection.length;
+}
+
+//console.log(countSubstrings("xabay"))
+
+
+
 
 
 
