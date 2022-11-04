@@ -3218,7 +3218,6 @@ const longestPalindromeSubstring = (s)=>{
 
 
 const countSubstrings = (s)=>{
-    console.log(s);
     let counter = s.length;
     let palindromicCollection = [];
     for(let i = 0; i < s.length ; i++){
@@ -3244,152 +3243,91 @@ const countSubstrings = (s)=>{
     return counter + palindromicCollection.length;
 }
 
-//console.log(countSubstrings("xabay"))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//console.log(countSubstrings("xabay"));
+
+const maxSubarray = (nums)=>{
+    let sum = nums[0];
+    let finalSum = nums[0];
+    // using sliding window technqiue
+    let end = 1;
+    while(end < nums.length){
+        
+        if(sum + nums[end] > nums[end]){
+            sum += nums[end];
+        }
+        else {
+            if(sum + nums[end] <= nums[end]){
+          sum = nums[end];
+      }
+        finalSum = Math.max(finalSum, sum);
+        end++;
+    }
+}
+
+    return finalSum;
+}
+
+//console.log(maxSubarray([-2,-2,-3,4,-1,2,1,-5,4]));
+
+const longestNiceSubstring = (s)=>{
+    if(s.length === 1) return '';
+    // brute force
+    let subCollection = new Set();
+    for(let i = 0; i < s.length; i++){
+        for(let j = i; j < s.length; j++){
+            if(j === i) continue;
+            const slice = s.slice(i, j+ 1);
+            subCollection.add(slice);
+        }
+    }
+    // check function for subarray nice or valid based on condition
+    const checkSubstring = (substring)=>{
+       let upper = new Set();
+       let lower = new Set();
+
+       for(let index in substring){
+        if(substring[index] === substring[index].toLowerCase()){
+            lower.add(substring[index]);
+        }else if(substring[index] === substring[index].toUpperCase()){
+            upper.add(substring[index]);
+        }
+       }
+       // set comparison
+       let check = false;
+       if(upper.size === lower.size){
+            const upperArray = [...upper].sort();
+            const lowerArray = [...lower].sort();
+            
+            // comparison
+            for(let i = 0; i < upperArray.length; i++){
+                if(upperArray[i].toLowerCase() === lowerArray[i].toLowerCase()){
+                    check = true;
+                }else{
+                    check = false;
+                    break;
+                }
+            }
+       }
+       return check;
+    }
+    const collectionArray = [...subCollection];
+    const finalCollection = [];
+    // final check
+    for(let i = 0; i < collectionArray.length; i++){
+        if(checkSubstring(collectionArray[i])){
+            finalCollection.push(collectionArray[i]);
+        }
+    }
+   // getting max
+   console.log(finalCollection);
+   let maxLen = 0;
+    for(let i = 0; i < finalCollection.length ; i++){
+        maxLen = Math.max(maxLen, finalCollection[i].length);
+   }
+    const result = finalCollection.filter((collection)=> collection.length === maxLen);
+    return result[0] === undefined ? '' : result[0];
+
+}
+
+//console.log(longestNiceSubstring(
+  //  "dDzeE"))
