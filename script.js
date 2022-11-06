@@ -3330,4 +3330,56 @@ const longestNiceSubstring = (s)=>{
 }
 
 //console.log(longestNiceSubstring(
-  //  "dDzeE"))
+  //  "dDzeE"));
+
+// easy problem
+const checkIfPangram = (sentence)=>{
+    const set = new Set();
+
+    for(let index in sentence){
+        set.add(sentence[index]);
+    }
+    if(set.size !== 26){
+        return false;
+    }else{
+        return true;
+    }
+}
+
+//console.log(checkIfPangram('thequickbrownfoxjumpsoverthelazydog'));
+
+
+const partitionLabelsRetry = (s)=>{
+    let hash = {};
+    for(let index in s){
+        hash[s[index]] = parseInt(index);
+    }
+    let endPointer = 0;
+    let size = 0;
+    let collection = [];
+    // as soon as you get to the end value in hash then that is a partition
+    for(let i = 0; i < s.length; i++){
+        if(hash[s[i]] || hash[s[i]] === 0){
+            size++;
+            endPointer = Math.max(endPointer, hash[s[i]]);
+        }
+        if(endPointer + 1 === size){
+            collection.push(size);
+        }
+
+    }
+    let finalIndexes = [];
+    finalIndexes.push(collection[0]);
+    for(let i = 1; i < collection.length; i++){
+        finalIndexes.push(collection[i] - collection[i - 1]);
+    }
+    return finalIndexes;
+}
+
+// console.log(partitionLabelsRetry(
+//     "caedbdedda"))
+
+
+
+
+
