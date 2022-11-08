@@ -3377,7 +3377,100 @@ const partitionLabelsRetry = (s)=>{
 }
 
 // console.log(partitionLabelsRetry(
-//     "caedbdedda"))
+//     "caedbdedda"));
+
+
+// count palindromic subsequence of length 3
+const countPalindromicSubsequence = (s)=>{
+    console.log(s);
+
+    // brute force approach using tripple nested loop
+    let set = new Set();
+    for(let first = 0; first < s.length; first++){
+        for(let second = first + 1; second < s.length; second++){
+            for(let third = second + 1; third < s.length; third++){
+                if(s[first] === s[third]){
+                    const palindromeString = s[first] + s[second] + s[third];
+                    set.add(palindromeString);
+                }
+            }
+        }
+    }
+
+    // optimized approach finding similar characters on both sides using nested loop
+    let optimizedSet = new Set();
+    for(let index = 0; index < s.length; index++){
+        let rightSet = new Set();
+        let leftSet = new Set();
+        if(index === 0 || index === s.length - 1){
+            continue;
+        }
+        const rightSlice = s.slice(index + 1, s.length);
+        const leftSlice = s.slice(0, index);
+        for(let i = 0; i < rightSlice.length; i++){
+            rightSet.add(rightSlice[i]);
+        }
+        for(let j = 0 ; j < leftSlice.length; j++){
+            leftSet.add(leftSlice[j]);
+        }
+        // iterating through set to check
+        for(const letter of rightSet){
+            if(leftSet.has(letter)){
+               const palindrome = letter + s[index] + letter;
+               optimizedSet.add(palindrome);
+            }
+        }
+    }
+    // final acceptable approach
+
+
+}
+
+//console.log(countPalindromicSubsequence(
+  //  "bbcbaba"))
+
+
+
+// non decreasing array
+const checkPossibility = (nums)=>{
+    // decreasing the left element is suitable as the next elements are not known
+    let maxCount = 0;
+    for(let i = 0; i < nums.length; i++){
+        if(nums[i] <= nums[i + 1]) continue;
+        if(nums[i] > nums[i + 1]){
+            if(nums[i] > nums[i + 1] && i === 0){
+                nums[i] = nums[i + 1];
+                maxCount++;
+            }
+            if(nums[i - 1] > nums[i + 1]){
+                nums[i + 1] = nums[i];
+                maxCount++;
+            }else if(nums[i - 1] === nums[i + 1]){
+                nums[i] = nums[i + 1];
+                maxCount++;
+            }
+            else if(nums[i - 1] < nums[i + 1]){
+                nums[i] = nums[i + 1];
+                maxCount++;
+            }
+        }
+        if(maxCount === 1){
+            break;
+        }
+    }
+    let newNums = [...nums];
+    let checkIncrease = true;
+    for(let i = 0; i < newNums.length; i++){
+        if(newNums[i] > newNums[i + 1]){
+            checkIncrease = false;
+            break;
+        }
+    }
+    return checkIncrease;
+}
+
+//console.log(checkPossibility([1,4,1,2]))
+
 
 
 
