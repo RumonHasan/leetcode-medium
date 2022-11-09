@@ -588,24 +588,6 @@ const findDuplicates = (nums)=>{
 //console.log(findDuplicates([4,3,2,7,8,2,3,1]))
 
 
-// increasing subsequence 
-
-const findSubsequences = (nums)=>{
-    console.log(nums);
-    const stack = [];
-
-    for(let i = 0; i < nums.length; i++){
-        for(let j = 1; j < nums.length; j++){
-            if(nums[i] < nums[j] || nums[i] === nums[j]){
-                const array = [nums[i], nums[j]];
-                console.log(array);
-            }
-        }
-    }
-
-    return stack;
-}
-
 //console.log(findSubsequences([4,6,7,7]));
 
 // returning the longest subarray mountain
@@ -3469,7 +3451,53 @@ const checkPossibility = (nums)=>{
     return checkIncrease;
 }
 
-//console.log(checkPossibility([1,4,1,2]))
+//console.log(checkPossibility([1,4,1,2]));
+
+const countKDifference = (nums, k)=>{
+    let counter = 0;
+    for(let i = 0; i < nums.length; i++){
+        for(let j = 0; j < i; j++){
+            if(i === 0) continue;
+            const difference = Math.abs(nums[j] - nums[i]);
+            if(difference === k) counter++; 
+        }
+    }
+    return counter;
+}
+// console.log(countKDifference([1,2,2,1], 1));
+
+
+
+// finding k different pairs
+const findPairs = (nums, k)=>{
+    let counter = 0;
+    let map = new Map();
+    // getting occurences
+    for(let i = 0; i < nums.length; i++){
+        if(map.has(nums[i])){
+            map.set(nums[i], map.get(nums[i]) + 1);
+        }else{
+            map.set(nums[i], 1);
+        }
+    }
+    // using non repetition map
+    for(const [key, value] of map){
+        if(k === 0){
+            if(value >= 2){
+                counter++;
+            }
+        }else{
+            const checkVal = key + k;
+            if(map.has(checkVal)){
+                counter++
+            }
+        }
+    }
+    return counter;
+}
+
+// console.log(findPairs([3,1,4,1,5], 2))
+
 
 
 
