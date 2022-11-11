@@ -3496,7 +3496,76 @@ const findPairs = (nums, k)=>{
     return counter;
 }
 
-// console.log(findPairs([3,1,4,1,5], 2))
+// console.log(findPairs([3,1,4,1,5], 2));
+var isSumEqual = function(firstWord, secondWord, targetWord) {
+    let first = 0;
+    let second = 0;
+    let target = 0;
+    let values = {
+        a: "0",
+        b: "1",
+        c: "2",
+        d: "3",
+        e: "4",
+        f: "5",
+        g: "6",
+        h: "7",
+        i: "8",
+        j: "9",
+      };
+    for(let index in firstWord){
+        first += values[firstWord[index]];
+    }
+    for(let index in secondWord){
+        second += values[secondWord[index]];
+    }
+    for(let index in targetWord){
+        target += values[targetWord[index]];
+    }
+
+    return parseInt(first) + parseInt(second) === parseInt(target);
+};
+
+//console.log(isSumEqual('acb', 'cba', 'cdb'));
+
+
+// generating all possible subsets of an array of arrays
+const subsets = (nums)=>{
+    const subsets = [];
+    const singleSubSet = [];
+    // using backtracking
+    const generateSubsetBacktrack = (index)=>{
+        if( index >= nums.length){
+            console.log(singleSubSet);
+            let subCopy = [...singleSubSet];
+            subsets.push(subCopy);
+            return;
+        }
+        // including nums from prev subsets
+        singleSubSet.push(nums[index]);
+        generateSubsetBacktrack(index + 1);
+
+        // removing the last nums[index] for the second condition
+        singleSubSet.splice(singleSubSet.length - 1, 1);
+        generateSubsetBacktrack(index + 1);
+    }
+    generateSubsetBacktrack(0);
+    return subsets;
+
+}
+//console.log(subsets([1,2,3]));
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
