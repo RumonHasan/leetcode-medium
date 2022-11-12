@@ -3555,6 +3555,100 @@ const subsets = (nums)=>{
 }
 //console.log(subsets([1,2,3]));
 
+// incomplete
+const subsetsWithDup = (nums)=>{
+    const subsets = [];
+    const singleSubSet = [];
+
+    const generateSubsetBacktrack = (index)=>{
+        if( index >= nums.length){
+            let subCopy = [...singleSubSet];
+            subsets.push(subCopy);
+            return;
+        }
+        // including nums from prev subsets
+        singleSubSet.push(nums[index]);
+        generateSubsetBacktrack(index + 1);
+
+        // removing the last nums[index] for the second condition
+        singleSubSet.splice(singleSubSet.length - 1, 1);
+        generateSubsetBacktrack(index + 1);
+    }
+    generateSubsetBacktrack(0);
+    
+    const noDuplicateSets = new Set();
+    for(let i = 0; i < subsets.length; i++){
+        const subset = subsets[i].toString().split(',').join('');
+        noDuplicateSets.add(subset);
+    }
+    // converting into integer
+    const noDuplicateArray = [...noDuplicateSets];
+    for(let i = 0; i < noDuplicateArray.length; i++){
+        noDuplicateArray[i] = noDuplicateArray[i].split('');
+        for(let j = 0; j < noDuplicateArray[i].length; j++){
+            noDuplicateArray[i][j] = parseInt(noDuplicateArray[i][j])
+        }
+    };
+    return noDuplicateArray;
+    
+}
+
+// setting matrix values as zeroes
+const setZeroesRetry = (matrix)=>{
+    // storing rows and columns in sets to stop repeatition
+    let colSet = new Set();
+    let rowSet = new Set();
+
+    // getting the zero locations 
+    for(let i = 0; i < matrix.length; i++){
+        for(let j = 0; j < matrix[i].length; j++){
+            matrix[i][j] === 0 && colSet.add(j) && rowSet.add(i);
+        }
+    };
+    // converting the rows to zero
+    for(let col of colSet){
+        for(let i = 0; i < matrix.length; i++){
+            matrix[i][col] = 0;
+        }
+    };
+    // converting the columns to zeros
+    for(let row of rowSet){
+        for(let i = 0; i < matrix[0].length; i++){
+            matrix[row][i] = 0;
+        }
+    }
+    return matrix;
+
+}
+
+//console.log(setZeroesRetry([[0,1,8,0],[3,4,5,2],[1,3,1,5]]));
+
+
+// removing overlapping intervals
+const eraseOverlapIntervals = (intervals)=>{
+    console.log(intervals);
+    if(intervals.length === 0){
+        return 0;
+    };
+    let sortedIntervals = intervals.sort((a, b)=> a[1] - b[1]);
+    // stack approach
+    let endValue = sortedIntervals[0][1];
+    let counter = 0;
+    for(let i = 1; i < sortedIntervals.length; i++){
+        const currentInterval = sortedIntervals[i];
+        if(currentInterval[0] < endValue){
+            counter++;
+        }else{
+            endValue = currentInterval[1];
+        }
+    }
+    return counter;
+}
+
+// console.log(eraseOverlapIntervals(
+    
+// [[0,2],[1,3],[2,4],[3,5],[4,6]]))
+
 
 
 
