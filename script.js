@@ -3626,7 +3626,6 @@ const setZeroesRetry = (matrix)=>{
 
 // removing overlapping intervals
 const eraseOverlapIntervals = (intervals)=>{
-    console.log(intervals);
     if(intervals.length === 0){
         return 0;
     };
@@ -3647,7 +3646,86 @@ const eraseOverlapIntervals = (intervals)=>{
 
 // console.log(eraseOverlapIntervals(
     
-// [[0,2],[1,3],[2,4],[3,5],[4,6]]))
+// [[0,2],[1,3],[2,4],[3,5],[4,6]]));
+
+
+// getting the subarray sum
+const subArraysum = (nums, k)=>{
+
+    let end = 0;
+    let map = new Map();
+    map.set(0,1);
+    let sum = 0;
+    let counter = 0;
+    while(end < nums.length){
+        sum += nums[end];
+        const prevSum = sum - k;
+        if(map.has(prevSum)){
+            counter += map.get(prevSum)
+        }
+        if(map.has(sum)){
+            map.set(sum, map.get(sum) + 1);
+        }else{
+            map.set(sum, 1);
+        };
+
+        end++;
+    }
+    return counter;
+
+};
+
+//console.log(subArraysum([1,2,3], 3));
+
+
+// diagonally sorting a matrix
+// const diagonalSort = (mat)=>{
+//     console.log(mat);
+//     let newMatrix = new Array(mat.length).fill(0);
+//     for(let i = 0; i < newMatrix.length; i++){
+//         newMatrix[i] = new Array(mat[0].length).fill(0);
+//     };
+//     console.log(newMatrix);
+
+//     // getting the diagonals
+//     for(let i = 0; i < mat.length; i++){
+//         for(let j = 0; j <mat.length; j++){
+            
+//         }
+//     }
+
+
+// }
+
+// // diagonal coords
+// // 2, 0
+// // 1,0 2,1
+// // 0,0 1,1, 2,2
+
+// console.log(diagonalSort([[3,3,1,1],[2,2,1,2],[1,1,1,2]]));
+
+
+const countDistinctIntegers = (nums)=>{
+    let set = new Set();
+    for(let index in nums){
+        set.add(nums[index]);
+    };
+    let newArray = [...nums];
+    for(let i = 0; i < nums.length; i++){
+        const num = nums[i].toString().split('');
+        newArray.push(parseInt(num.reverse().join('')));
+    };
+    for(let index in newArray){
+        set.add(newArray[index]);
+    }
+    return set.size;
+}
+
+//console.log(countDistinctIntegers([1,13,10,12,31]))
+
+
+
+
 
 
 
