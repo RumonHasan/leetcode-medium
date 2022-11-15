@@ -3618,7 +3618,6 @@ const setZeroesRetry = (matrix)=>{
         }
     }
     return matrix;
-
 }
 
 //console.log(setZeroesRetry([[0,1,8,0],[3,4,5,2],[1,3,1,5]]));
@@ -3705,6 +3704,7 @@ const subArraysum = (nums, k)=>{
 // console.log(diagonalSort([[3,3,1,1],[2,2,1,2],[1,1,1,2]]));
 
 
+// count distinct integers
 const countDistinctIntegers = (nums)=>{
     let set = new Set();
     for(let index in nums){
@@ -3721,7 +3721,30 @@ const countDistinctIntegers = (nums)=>{
     return set.size;
 }
 
-//console.log(countDistinctIntegers([1,13,10,12,31]))
+//console.log(countDistinctIntegers([1,13,10,12,31]));
+
+
+const checkString = (s)=>{
+    let indexA = [];
+    let aCounter = 0;
+    let genCounter = 1;
+    if(s.split('').every((letter)=> letter === 'b')) return true;
+    for(let index in s){
+        s[index] === 'a' && indexA.push(parseInt(index)) && aCounter++;
+    };
+    // false conditions
+    if(indexA.length === 1 && indexA[0] > 0) return false;
+    if(indexA[0] > 0) return false;
+    for(let i = 1; i < indexA.length; i++){
+        if(indexA[i] - indexA[i - 1] !== 1) return false;
+        genCounter++;
+    }
+    return genCounter === aCounter;
+}
+
+console.log(checkString("ba"))
+
+
 
 
 
