@@ -3742,7 +3742,42 @@ const checkString = (s)=>{
     return genCounter === aCounter;
 }
 
-console.log(checkString("ba"))
+//console.log(checkString("ba"));
+
+// array is guaranteed to be a increasing then drop then peak index
+const peakIndexInAMountainArray = (arr)=>{
+    console.log(arr);
+    
+    let endIndex = 0;
+    let indexRecord = 0;
+    while(endIndex < arr.length){
+        if(arr[endIndex + 1] > arr[endIndex]){
+            let peakCheck = false;
+            while(endIndex < arr.length && arr[endIndex + 1] > arr[endIndex]){
+                endIndex++;
+            }
+            // checking for drop in index value
+            while(endIndex < arr.length && arr[endIndex + 1] < arr[endIndex]){
+                peakCheck = true;
+                break;
+            }
+            // if peak check is true then record the point of change
+            if(peakCheck){
+                return indexRecord = endIndex;
+            }
+        }else{
+            endIndex++;
+        }
+    }
+};
+//get index of 2 with peak 15 
+
+//console.log(peakIndexInAMountainArray([0,10,15,5,2]))
+
+
+
+
+
 
 
 
