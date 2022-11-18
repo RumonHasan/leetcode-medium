@@ -3772,7 +3772,35 @@ const peakIndexInAMountainArray = (arr)=>{
 };
 //get index of 2 with peak 15 
 
-//console.log(peakIndexInAMountainArray([0,10,15,5,2]))
+//console.log(peakIndexInAMountainArray([0,10,15,5,2]));
+
+// 1268. Search Suggestions System
+const suggestedProducts = (products, searchWord)=>{
+    let sortedProducts = products.sort();
+    let searchCollection = [];
+    // nested approach
+    let checkString = '';
+    for(let i = 0; i < searchWord.length ; i++){
+        let letter = searchWord[i];
+        checkString += letter;
+        let singleCollection = [];
+        for(let j = 0; j < products.length; j++){
+            if(sortedProducts[j].startsWith(checkString)){
+                singleCollection.push(sortedProducts[j]);
+            }
+        }
+        if(singleCollection.length > 3){
+            searchCollection.push(singleCollection.slice(0, 3));
+        }else{
+            searchCollection.push(singleCollection);
+        }
+    }
+    return searchCollection;
+}
+
+//console.log(suggestedProducts(["mobile","mouse","moneypot","monitor","mousepad"],
+//"mouse" ))
+
 
 
 
