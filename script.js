@@ -3825,7 +3825,32 @@ const maxSumOfHourGlass = (grid)=>{
     return maxHourSum;
 }
 
-//console.log(maxSumOfHourGlass([[6,2,1,3],[4,2,1,5],[9,2,8,7],[4,1,2,9]]))
+//console.log(maxSumOfHourGlass([[6,2,1,3],[4,2,1,5],[9,2,8,7],[4,1,2,9]]));
+var kthDistinct = function(arr, k) {
+    let hash = {};
+    for(let index in arr){
+        hash[arr[index]] ? hash[arr[index]]++ : hash[arr[index]] = 1;
+    };
+    let collection = [];
+    for(const [key, value] of Object.entries(hash)){
+        value === 1 && collection.push(key);
+    };
+    if(collection.length < k){
+        let remainingLength = k - collection.length;
+        for(let i = 0; i < remainingLength ; i++){
+            collection.push('');
+        };
+        return collection[k - 1];
+    }else{  
+        return collection[k - 1];
+    }
+   
+};
+
+//console.log(kthDistinct(
+  //  ["a","b","a"], 3))
+
+
 
 
 
