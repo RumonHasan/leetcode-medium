@@ -3802,6 +3802,31 @@ const suggestedProducts = (products, searchWord)=>{
 //"mouse" ))
 
 
+// finding the max sum of hour class in a 3*3 matrix
+const maxSumOfHourGlass = (grid)=>{
+    // forming 3 * 3 matrix
+    let maxHourSum = 0;
+    for(let i = 0; i < grid.length; i++){
+        let gridRow = grid[i];
+        for(let j = 0; j < gridRow.length; j++){
+            if(grid.length - i < 3){
+                continue;
+            }else if(gridRow.length - j < 3){
+                continue;
+            }else{
+                let singleHourGlassSum = grid[i][j] + grid[i][j + 1] + grid[i][j + 2] + grid[i + 1][j + 1]
+                + grid[i + 2][j] + grid[i + 2][j + 1] + grid[i + 2][j + 2];
+                if(!isNaN(singleHourGlassSum)){
+                    maxHourSum = Math.max(maxHourSum, singleHourGlassSum);
+                }
+            }
+        }
+    };
+    return maxHourSum;
+}
+
+//console.log(maxSumOfHourGlass([[6,2,1,3],[4,2,1,5],[9,2,8,7],[4,1,2,9]]))
+
 
 
 
