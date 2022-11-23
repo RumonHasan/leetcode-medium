@@ -3876,7 +3876,40 @@ const search = (nums, target)=>{
     return index === -Infinity ? -1 : index;
 }
 
-//console.log(search([-1,0,3,5,9,12], 9))
+//console.log(search([-1,0,3,5,9,12], 9));
+
+
+// removing all the adjacent duplicates within the string and recombining the remaining parts in order to find
+// other combinations.
+const removeAllAdjacentDuplicates = (s, k)=>{
+    console.log(s, k);
+    // note hash approach is also a possible way but will not work due to the order switch 
+    // using the stack approach to store the character and its count
+    let stack = [[s[0], 1]]; // initial value
+    let endIndex = 1;
+    while(endIndex < s.length){
+        if(stack.length && stack[stack.length - 1][0] === s[endIndex]){
+            stack[stack.length - 1][1] += 1;
+        }else{
+            // pushing an extra new char with one occurence
+            stack.push([s[endIndex], 1]);
+        }
+        if(stack[stack.length - 1][1] === k){
+            stack.pop();
+        }
+        endIndex++;
+    }
+    let finalString = '';
+    // iterating stack
+    for(let i = 0; i < stack.length ; i++){
+        const letter = stack[i][0];
+        finalString += letter.repeat(stack[i][1]);
+    }
+    return finalString;
+    
+}
+
+//console.log(removeAllAdjacentDuplicates("deeedbbcccbdaa", 3))
 
 
 
