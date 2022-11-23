@@ -3848,7 +3848,35 @@ var kthDistinct = function(arr, k) {
 };
 
 //console.log(kthDistinct(
-  //  ["a","b","a"], 3))
+  //  ["a","b","a"], 3));
+
+// using basic binary search
+const search = (nums, target)=>{
+    let sortedNums = nums.sort((a, b)=> a - b);
+    let index = -Infinity;
+    const binaryCheck = (target, start, end)=>{
+        // edge case if the start index exceeds the length
+        if(start > end){
+            return -1;
+        };
+        const middleIndex = Math.floor(end - start / 2);
+        if(sortedNums[middleIndex] === target){
+            index = middleIndex;
+            return ;
+        }
+        if(sortedNums[middleIndex] > target){
+            binaryCheck(target, start, middleIndex - 1);
+        }
+        if(sortedNums[middleIndex] < target){
+            binaryCheck(target, middleIndex + 1, end);
+        }
+     
+    }
+    binaryCheck(target, 0, nums.length - 1);
+    return index === -Infinity ? -1 : index;
+}
+
+//console.log(search([-1,0,3,5,9,12], 9))
 
 
 
