@@ -3911,24 +3911,63 @@ const removeAllAdjacentDuplicates = (s, k)=>{
 
 //console.log(removeAllAdjacentDuplicates("deeedbbcccbdaa", 3));
 
-
 // remove stars to the left of every characters
 const removeStars = (s)=>{
     const star = '*';
-    let stack = [];// using stack to store all letters without stars;
-
+    let stack = [];
     for(let i = 0; i < s.length; i++){
-        if(s[i] !== star){
-            stack.push(s[i]);
-        };
-        // check if its in the stack
-        if(s[i] === star){
-            stack.pop();
-        }
+        s[i] !== star && stack.push(s[i]);
+        s[i] === star && stack.pop();
     };
     return stack.join('');
 }
-// console.log(removeStars("leet**cod*e"))
+// console.log(removeStars("leet**cod*e"));
+const backSpaceCompare = (s, t)=>{
+    let stackOne = [];
+    let stackTwo = [];
+    
+    for(let index in s){
+        s[index] !== '#' && stackOne.push(s[index]);
+        s[index] === '#' && stackOne.pop();
+    };
+    for(let index in t){
+        t[index] !== '#' && stackTwo.push(t[index]);
+        t[index] === '#' && stackTwo.pop();
+    }
+    return stackOne.join('') === stackTwo.join('');
+    
+}
+
+//console.log(backSpaceCompare("ab##", "c#d#"));
+
+
+// matrix diagonal sum;
+const diagonalSum = (mat) =>{
+    // traversing the matrix
+    let matLen = mat.length;
+    let finalSum = 0;
+    let collectionArray = [];
+    for(let i = 0; i < mat.length; i++){
+        for(let j = 0; j < mat[i].length; j++){
+            // primary diagonal;
+            if(i === j){
+                collectionArray.push(mat[i][j]);
+            }
+            if(i === j && (i + j) === matLen - 1){
+                continue;
+            }
+            if((i + j) === matLen - 1){
+                collectionArray.push(mat[i][j]);         
+            }
+        }
+    }
+    finalSum = collectionArray.reduce((a, b)=> a + b);
+    return finalSum;
+}
+
+// console.log(diagonalSum([[1,2,3],
+//     [4,5,6],
+//     [7,8,9]]))
 
 
 
