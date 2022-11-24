@@ -3909,7 +3909,26 @@ const removeAllAdjacentDuplicates = (s, k)=>{
     
 }
 
-//console.log(removeAllAdjacentDuplicates("deeedbbcccbdaa", 3))
+//console.log(removeAllAdjacentDuplicates("deeedbbcccbdaa", 3));
+
+
+// remove stars to the left of every characters
+const removeStars = (s)=>{
+    const star = '*';
+    let stack = [];// using stack to store all letters without stars;
+
+    for(let i = 0; i < s.length; i++){
+        if(s[i] !== star){
+            stack.push(s[i]);
+        };
+        // check if its in the stack
+        if(s[i] === star){
+            stack.pop();
+        }
+    };
+    return stack.join('');
+}
+// console.log(removeStars("leet**cod*e"))
 
 
 
