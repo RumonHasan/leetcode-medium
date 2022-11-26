@@ -3967,7 +3967,81 @@ const diagonalSum = (mat) =>{
 
 // console.log(diagonalSum([[1,2,3],
 //     [4,5,6],
-//     [7,8,9]]))
+//     [7,8,9]]));
+
+
+
+// product of the other elements other than the number itself.
+const productExceptSelf = (nums)=>{
+    // get the suffix products
+    let suffProdArray = new Array(nums.length).fill(1);
+    let prefProdArray = new Array(nums.length).fill(1);
+    let finalProdArray = new Array(nums.length).fill(1);
+    // prod variables 
+    let suffProd = 1;
+    let prefProd = 1;
+
+    for(let i = nums.length - 1; i >= 0; i--){
+        suffProd *= nums[i];
+        suffProdArray[i] = suffProd;
+    };
+    // get the prefix products
+    for(let i = 0; i < nums.length; i++){
+        prefProd *= nums[i];
+        prefProdArray[i] = prefProd;
+    };
+    // using the pref and the suff prod arrays get prods from each side of the selected elements
+    // base logic is to find the next suffix element from each side of the primary element
+    for(let i = 0; i < nums.length; i++){
+        const suffProdElement = suffProdArray[i + 1] === undefined ? 1 : suffProdArray[i + 1];
+        const prefProdElement = prefProdArray[i - 1] === undefined ? 1 : prefProdArray[i - 1];
+        finalProdArray[i] = suffProdElement * prefProdElement;
+    };
+    return finalProdArray;
+
+}
+// possible output is 
+// [24,12, 8, 6]
+
+//console.log(productExceptSelf([1,2,3,4]));
+
+
+// finding the longest word that can be formed using all the other words as prefixes of the current word
+const longestWordInDictionary = (words)=>{
+    const wordsSorted = words.sort();
+    // all the prefix needs to be present of the current word
+    const getPrefixes = (word)=>{
+        let prefixSet = new Set();
+        let prefs = '';
+        for(let i = 0; i < word.length - 1; i++){
+            prefs += word[i];
+            prefixSet.add(prefs);
+        };
+        return prefixSet;
+    };
+    // main iteration to check which has all the prefixes in the entire array
+    let finalWord = '';
+    for(let i = 0; i < wordsSorted.length ; i++){
+        let word = wordsSorted[i];
+        let prefixSetArray = [...getPrefixes(word)];
+        // checking whether all the prefixes are present or not in the wordssorted
+        let collection = [];
+        if(prefixSetArray.every((el)=> wordsSorted.includes(el))){
+           if(finalWord.length < word.length){
+                finalWord = word;
+                if(finalWord.length === word.length){
+                    collection = [finalWord, word].sort();
+                    finalWord = collection[0];
+                }
+           };
+        }
+    };
+    return finalWord;
+
+
+};
+
+//console.log(longestWordInDictionary(["a","banana","app","appl","ap","apply","apple"]))
 
 
 
