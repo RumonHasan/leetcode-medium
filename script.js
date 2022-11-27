@@ -4037,13 +4037,44 @@ const longestWordInDictionary = (words)=>{
         }
     };
     return finalWord;
-
-
 };
+//console.log(longestWordInDictionary(["a","banana","app","appl","ap","apply","apple"]));
 
-//console.log(longestWordInDictionary(["a","banana","app","appl","ap","apply","apple"]))
 
 
+// leetcode two city scheduling 
+const twoCitySchedCost = (costs)=>{
+    let costHashArray = [];
+    // base logic finding which city is more expensive than each other.. then after finding the difference
+    // calculating where to send which city and sorting it out 
+    // getting the difference and cost hash
+    for(let i = 0; i < costs.length; i++){
+        const localDifference = costs[i][1] - costs[i][0];
+        costHashArray.push({
+            difference: localDifference,
+            values: costs[i]
+        });
+    };
+    // sorting the cost hash array based on the difference
+    const costArraySorted = costHashArray.sort((a, b)=> a.difference - b.difference);
+    // assigning the first half for city B and city A
+    let halfCheck = false;
+    let total = 0;
+    for(let i = 0; i < costArraySorted.length; i++){
+        if(!halfCheck){
+            total += costArraySorted[i].values[1];
+        }else{
+            total += costArraySorted[i].values[0];
+        };
+        if(i === (costArraySorted.length / 2) - 1){
+            halfCheck = true;
+        }
+    }   
+    return total;
+
+}
+
+//console.log(twoCitySchedCost([[10,20],[30,200],[400,50],[30,20]]))
 
 
 
