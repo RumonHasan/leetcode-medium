@@ -4074,7 +4074,34 @@ const twoCitySchedCost = (costs)=>{
 
 }
 
-//console.log(twoCitySchedCost([[10,20],[30,200],[400,50],[30,20]]))
+//console.log(twoCitySchedCost([[10,20],[30,200],[400,50],[30,20]]));
+
+
+// buy and sell stock ii //you are allowed to make multiple transaction
+const maxProfit = (prices)=>{
+    let buyStock = prices[0];
+    let profit = 0;
+    // main iteration
+    for(let i = 1; i < prices.length ; i++){
+        if(prices[i] < buyStock){
+            buyStock = prices[i];
+        }else{
+            if(prices[i] > buyStock && prices[i + 1] < prices[i]){
+                const difference = prices[i] - buyStock;
+                profit += difference;
+                buyStock = prices[i + 1];
+            }else{
+                if(i === prices.length - 1){
+                    profit += prices[i] - buyStock;
+                    break;
+                }
+            }
+        }
+    };
+    return profit;
+}
+//console.log(maxProfit([7,1,5,3,6,4]))
+
 
 
 
