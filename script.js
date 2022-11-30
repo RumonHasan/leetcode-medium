@@ -4100,7 +4100,78 @@ const maxProfit = (prices)=>{
     };
     return profit;
 }
-//console.log(maxProfit([7,1,5,3,6,4]))
+//console.log(maxProfit([7,1,5,3,6,4]));
+
+
+// finding the longest substring that has vowels appearing even number of times
+// sliding window approach
+const findTheLongestSubstring = (s)=>{
+    console.log(s);
+    const subHash ={
+        'a': 0,
+        'e': 0,
+        'i': 0,
+        'o': 0,
+        'u': 0,
+    };
+    // using vowel hash to store the increments of the vowels
+    let endIndex = 0;
+    let maxLength = 0;
+    let startIndex = 0;
+    while(endIndex < s.length){
+        if(s[endIndex] in subHash){
+            subHash[s[endIndex]]++;
+        };
+        const hashVals = Object.values(subHash);
+        console.log(hashVals);
+        // // if all the values in the array is divisible by 2 then reduce window
+        // hashVals.every((singleValue)=> singleValue % 2 === 0)){
+
+        // }
+        endIndex++;
+    }
+
+}
+//console.log(findTheLongestSubstring("leetminicoworoep"));
+
+// valid palindrome II
+const validPalindromeII = (s)=>{
+    let end = s.length - 1;
+    let start = 0;
+    // basic palindrome checker
+    const checkPalindrome = (s, end, start)=>{
+        if(start === end){
+            return true;
+        }
+        let localEnd = end;
+        let localStart = start;
+        while(localStart <= localEnd){
+            if(s[localStart] !== s[localEnd]){
+                return false;
+            }
+            localStart++;
+            localEnd--;
+        }
+        return true;
+    }
+    // main iteration for checking the last two chars.. ignoring the last two chars if they are same
+    while(start <= end){
+        if(s[start] !== s[end]){
+            return checkPalindrome(s, end - 1, start) || checkPalindrome(s, end, start + 1);
+        }
+        end--;
+        start++;
+    }
+    return true;
+}   
+
+//console.log(validPalindromeII("bzzb"))
+
+
+
+
+
+
 
 
 
