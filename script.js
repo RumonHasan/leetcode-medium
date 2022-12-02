@@ -4165,8 +4165,82 @@ const validPalindromeII = (s)=>{
     return true;
 }   
 
-//console.log(validPalindromeII("bzzb"))
+//console.log(validPalindromeII("bzzb"));
 
+
+// delete and earn values
+const deleteAndEarn = (nums)=>{
+    // using dp way
+    nums.sort((a, b)=> a - b);
+    let hash = {};
+    for(let index in nums){
+        if(hash[nums[index]]){
+            hash[nums[index]]++;
+        }else{
+            hash[nums[index]] = 1;
+        }
+    };
+    const keyVals = Object.keys(hash);
+    let newNums = [];
+    for(let i = 0; i < keyVals.length; i++){
+        newNums.push(parseInt(keyVals[i]));
+    }
+    let dpArray = new Array(newNums.length).fill(0);
+    // main iteration
+    for(let i = 0; i < newNums.length; i++){
+        if(i === 0){ // no prev values hence for the first index
+            dpArray[i] = newNums[i] * hash[newNums[i]];
+        }else if(i === 1){
+            if(newNums[i] - 1 === newNums[i - 1]){
+                dpArray[i] = Math.max(newNums[i] * hash[newNums[i]], dpArray[i - 1]);
+            }else{
+                dpArray[i] = dpArray[i - 1] + (newNums[i] * hash[newNums[i]]);
+            }
+        }else{
+        // remaining condition where you can put all values that appear right before the other total values too
+            if(newNums[i] - 1 === newNums[i - 1]){
+                // only can be included the max of the current number multiplied by its occurence plus the old sum from dpArray
+                let maxCurrentNumEarn = newNums[i] * hash[newNums[i]];
+                let maxEarn = Math.max(maxCurrentNumEarn + dpArray[i - 2], dpArray[i - 1]);
+                dpArray[i] = maxEarn;
+
+            }else{
+                dpArray[i] = newNums[i] * hash[newNums[i]] + dpArray[i - 1];
+            }
+        }
+    }
+    return dpArray[dpArray.length - 1];
+
+}
+// console.log(deleteAndEarn(
+
+//     [1,6,3,3,8,4,8,10,1,3]))
+
+// house robber problem similar to delete and earn using dp approach;
+ // keeping in that mind we cannot rob the house adjacent to the left side of the array if we are iterating using a linear appraoch
+ // if two adjacent houses like the i + 1 houses are robbed they will be alerted
+const rob = (nums)=>{
+    // dp is the logic of cumulative earnings of element that helps to add the summation of problems
+    let dpArray = new Array(nums.length).fill(0);
+    for(let i = 0; i < nums.length; i++){
+        // first and second element by default will have custom addition
+        if(i === 0){
+            dpArray[i] = nums[i] + dpArray[i];
+        };
+        if( i === 1){
+            let maxMoney = Math.max(nums[i], dpArray[i - 1]);
+            dpArray[i] = maxMoney;
+        }
+        // remaining logic for index 2 onwards
+        if(i > 1){
+            let maxMoney = Math.max(dpArray[i - 1], nums[i] + dpArray[i - 2]);
+            dpArray[i] = maxMoney;
+        }
+        console.log(dpArray);
+    };
+    return dpArray[dpArray.length - 1];
+   
+}
 
 
 
