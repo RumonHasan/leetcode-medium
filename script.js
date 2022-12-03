@@ -4266,10 +4266,11 @@ const robII = (nums)=>{
     // getting the dp with and without first and last elmeent
     let dpOne = robCheck(nums.slice(1, nums.length));
     let dpTwo = robCheck(nums.slice(0, nums.length - 1));
+    console.log(dpOne, dpTwo, nums);
     return Math.max(...dpOne, ...dpTwo) === -Infinity ? 0 : Math.max(...dpOne, ...dpTwo);
 
 }
-//console.log(robII([1,2,1,1]));
+// console.log(robII([1,2,1,1]));
 
 // using basic dpArray approach in order to solve the problem
 const minCostClimbingStairs = (cost)=>{
@@ -4291,11 +4292,32 @@ const minCostClimbingStairs = (cost)=>{
             dpArray[i] = Math.min(firstStep, secondStep);
         }
     }
+    console.log(dpArray, cost);
     // now we need to get the mininum between the first and second elements of the dp 
     return Math.min(dpArray[0], dpArray[1]);
 }
 
-//console.log(minCostClimbingStairs([1,100,1,1,1,100,1,1,100,1]))
+// console.log(minCostClimbingStairs([1,100,1,1,1,100,1,1,100,1]))
+
+// climbing stairs problem using the reverse dynamic programming strategy
+const climbStairs = (n)=>{
+    let dpArray = new Array(n + 1).fill(0);
+    // reverse logic to reach the goal with max of two steps
+    for(let i = dpArray.length - 1; i >= 0; i--){
+        if(i === dpArray.length - 1 || i === dpArray.length - 2){
+            dpArray[i] = 1;
+        }
+        // from the third last index we start recording
+        if(i < dpArray.length - 2){
+            dpArray[i] = dpArray[i + 1] + dpArray[i + 2];
+        }
+    }
+    return dpArray[0];
+
+}
+
+
+//console.log(climbStairs(5));
 
 
 
