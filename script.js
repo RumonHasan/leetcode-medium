@@ -4240,7 +4240,6 @@ const rob = (nums)=>{
     return dpArray[dpArray.length - 1];
 }
 
-
 // house robber problem II where the first house is connected to the last house hence making them adjacent houses
 const robII = (nums)=>{
     // cannot include the first house and include the last house
@@ -4271,6 +4270,33 @@ const robII = (nums)=>{
 
 }
 //console.log(robII([1,2,1,1]));
+
+// using basic dpArray approach in order to solve the problem
+const minCostClimbingStairs = (cost)=>{
+    let dpArray = new Array(cost.length).fill(0);
+    for(let index in cost){
+        dpArray[index] = cost[index];
+    };
+    // extra element to create the out of bound destination spot
+    dpArray.push(0);
+    // contains the elements of simultaneously one step and two step
+    for(let i = dpArray.length - 1; i >= 0; i--){
+        if(i === dpArray.length - 1 || i === dpArray.length - 2){
+            continue;
+        }
+        // rest of the array
+        if( i < dpArray.length - 2){
+            let firstStep = dpArray[i] + dpArray[i + 1];
+            let secondStep = dpArray[i] + dpArray[i + 2];
+            dpArray[i] = Math.min(firstStep, secondStep);
+        }
+    }
+    // now we need to get the mininum between the first and second elements of the dp 
+    return Math.min(dpArray[0], dpArray[1]);
+}
+
+//console.log(minCostClimbingStairs([1,100,1,1,1,100,1,1,100,1]))
+
 
 
 
