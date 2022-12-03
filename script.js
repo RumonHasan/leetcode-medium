@@ -4236,11 +4236,45 @@ const rob = (nums)=>{
             let maxMoney = Math.max(dpArray[i - 1], nums[i] + dpArray[i - 2]);
             dpArray[i] = maxMoney;
         }
-        console.log(dpArray);
     };
     return dpArray[dpArray.length - 1];
-   
 }
+
+
+// house robber problem II where the first house is connected to the last house hence making them adjacent houses
+const robII = (nums)=>{
+    // cannot include the first house and include the last house
+    if(nums.length === 1) return nums[0];
+    const robCheck = (nums)=>{
+        let dpArray = new Array(nums.length).fill(0);
+                // main iteration 
+        for(let i = 0; i < nums.length; i++){
+            if(i === 0){
+                dpArray[i] = nums[i];
+            }
+            // checking for second index seperately
+            if(i === 1){
+                let maxSecondValue = Math.max(dpArray[i - 1], nums[i]);
+                dpArray[i] = maxSecondValue;
+            }
+            if(i > 1){
+                let maxValue = Math.max(dpArray[i - 1], dpArray[i - 2] + nums[i]);
+                dpArray[i] = maxValue; 
+            }
+        }
+        return dpArray;
+    }
+    // getting the dp with and without first and last elmeent
+    let dpOne = robCheck(nums.slice(1, nums.length));
+    let dpTwo = robCheck(nums.slice(0, nums.length - 1));
+    return Math.max(...dpOne, ...dpTwo) === -Infinity ? 0 : Math.max(...dpOne, ...dpTwo);
+
+}
+//console.log(robII([1,2,1,1]));
+
+
+
+
 
 
 
