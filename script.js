@@ -4319,6 +4319,70 @@ const climbStairs = (n)=>{
 
 //console.log(climbStairs(5));
 
+// combination sum
+
+
+// longest increasing sub practise using dp approach
+const longestIncreasingSub = (nums)=>{
+    // remmber subsequence can skip values 
+    let dpArray = new Array(nums.length).fill(1);
+    // by default dpArrays have length of 1
+    // getting the subsequence
+    for(let i = 1; i < nums.length; i++){
+        let endNum = nums[i];
+        for(let j = 0; j < i; j++){
+            // if current is smaller then skip
+            if(endNum <= nums[j]) continue;
+            if(endNum > nums[j]){
+                // to check whether the subsequence is already present or not so we find the max
+                dpArray[i] = Math.max(dpArray[j] + 1, dpArray[i]);
+            }
+        }
+    }
+    return Math.max(...dpArray);
+}
+
+//console.log(longestIncreasingSub([10,9,2,5,3,7,101,18]));
+
+
+const deleteAndEarnRetryOptimized = (nums)=>{
+    nums.sort((a, b)=> a - b);// sorting the nums to find the value right before
+    let numHash = {};
+    let uniqueArray = [];
+    for(let index in nums){
+        if(numHash[nums[index]]){
+            numHash[nums[index]]++;
+        }else{
+            numHash[nums[index]] = 1;
+            uniqueArray.push(nums[index]);
+        }
+    }
+    // console.log(uniqueArray, numHash); // using the occurence to multiply and add the totals
+    let dp = new Array(uniqueArray.length).fill(0);
+    for(let i = 0; i < uniqueArray.length; i++){
+        const currentNumTotal = uniqueArray[i] * numHash[uniqueArray[i]];
+        if(i === 0){
+            dp[i] = uniqueArray[i] * numHash[uniqueArray[i]];
+        }else if(i === 1){
+            if(uniqueArray[i] - 1 === uniqueArray[i - 1]){
+                dp[i] = Math.max(dp[i - 1], currentNumTotal);
+            }else{
+                dp[i] = Math.max(dp[i - 1], currentNumTotal + dp[i - 1]);
+            }
+        }else{
+            // indexes above 1
+            if(uniqueArray[i] - 1 === uniqueArray[i - 1]){
+                dp[i] = Math.max(dp[i - 1], currentNumTotal + dp[i - 2]);
+            }else{
+                dp[i] = dp[i - 1] + currentNumTotal;
+            }   
+        }
+    }
+    return dp[dp.length - 1];
+
+}
+
+//console.log(deleteAndEarnRetryOptimized([2,2,3,3,3,4]))
 
 
 
