@@ -4382,7 +4382,42 @@ const deleteAndEarnRetryOptimized = (nums)=>{
 
 }
 
-//console.log(deleteAndEarnRetryOptimized([2,2,3,3,3,4]))
+//console.log(deleteAndEarnRetryOptimized([2,2,3,3,3,4]));
+
+
+// counting the number of palindromic substrings that can be formed using the one single single string
+    // first approach is to get the even number of palindromic substrings 
+    // second step is to get the the odd number substrings by going left and right from the selected character
+const countPalindromicSubstrings = (s)=>{
+    let counter = 0;
+    for(let index = 0; index < s.length ; index++){
+        let leftIndex = index - 1;
+        let rightIndex = index + 1;
+        // get the odd number of palindromic subs
+        while(leftIndex >= 0 && rightIndex < s.length && s[leftIndex] === s[rightIndex]){
+            counter++;
+            leftIndex--;    
+            rightIndex++;
+        }   
+        // index switch for even pair detection
+        leftIndex = index;
+        rightIndex = index + 1;
+        // get the even number of palindromic subs
+        while(leftIndex >= 0 && rightIndex < s.length && s[leftIndex] === s[rightIndex]){
+            counter++;
+            leftIndex--;
+            rightIndex++;
+        }
+        
+    };
+    return counter + s.length;
+    
+}
+
+console.log(countPalindromicSubstrings('aaa'))
+
+
+
 
 
 
