@@ -4414,7 +4414,31 @@ const countPalindromicSubstrings = (s)=>{
     
 }
 
-console.log(countPalindromicSubstrings('aaa'))
+//console.log(countPalindromicSubstrings('aaa'));
+
+// considering that alice always starts first in the pick
+const stoneGameDp = (piles)=>{
+    piles.sort((a, b)=> b - a);
+    let aliceDp = new Array(piles.length / 2).fill(0);
+    aliceDp[0] = piles[0];
+    let bobDp = new Array(piles.length / 2).fill(0);
+    let halfPoint = piles.length / 2;
+    for(let i = 1; i < piles.length / 2; i++){
+        aliceDp[i] += aliceDp[i - 1] + piles[i];
+    }
+    const bobPile = piles.slice(halfPoint, piles.length);
+    for(let i = 0; i <bobPile.length; i++ )   {
+        if(i === 0){
+            bobDp[i] = bobPile[i];
+        }else{
+            bobDp[i] += bobDp[i - 1] + bobPile[i];
+        }
+    }
+    return bobDp[bobDp.length - 1] > aliceDp[aliceDp.length - 1] ? false : true;
+
+}
+
+//console.log(stoneGameDp([5,3,4,5]))
 
 
 
