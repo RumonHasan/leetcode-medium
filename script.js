@@ -4438,7 +4438,80 @@ const stoneGameDp = (piles)=>{
 
 }
 
-//console.log(stoneGameDp([5,3,4,5]))
+//console.log(stoneGameDp([5,3,4,5]));
+
+// incomplete as it involves 2D dynamic programming algorithm
+//2 dimensional dynamic programming problems are usually used to be solved in a grid format in order to better understand the logical solution
+const longestCommonSubsequence = (text1, text2)=>{
+    let dp;
+    if(text2.length > text1.length){
+        dp = new Array(text1.length).fill('');
+    }else if( text1.length > text2.length){
+        dp = new Array(text2.length).fill('');
+    }else{
+        dp = new Array(text1.length).fill('');
+    };
+    let maxLen = Math.max(text1.length, text2.length);
+    let textArray = text1.length === maxLen ? text1 : text2;
+    let smallerText = text1.length === maxLen ? text2 : text1;
+
+    // main iteration
+    let counter = 0;
+    for(let i = 0; i < textArray.length; i++){
+        let smallIndex = 0;
+        while(smallIndex < smallerText.length){
+            if(smallerText[smallIndex] === textArray[i]){
+                counter++;
+                break;
+            }
+            smallIndex++;
+        }
+    }
+    return counter;
+}
+
+//console.log(longestCommonSubsequence("ezupkr", "ubmrapg"));
+
+// applying a linear dp approach to the problem 
+// every difference should be strictly alternating between negative and positve numbers
+const wiggleMaxLength = (nums)=>{
+    // making increasing and decreasing dp arrays
+    let dpPlus = new Array(nums.length).fill(0);
+    dpPlus[0] = 1;
+    let dpMinus = new Array(nums.length).fill(0);
+    dpMinus[0] = 1;
+    // initialising first indexes as one because the first subsequence is always one
+    // main iteration to control the increasing and decreasing dps
+    for(let i = 1; i < nums.length; i++){
+        if(nums[i] > nums[i - 1]){
+            dpPlus[i] = dpMinus[i - 1] + 1;
+            dpMinus[i] = dpMinus[i - 1];
+        };
+        if(nums[i] < nums[i - 1]){
+            dpMinus[i] = dpPlus[i - 1] + 1;
+            dpPlus[i] = dpPlus[i - 1];
+        }
+        if(nums[i] === nums[i - 1]){
+            dpMinus[i] = dpMinus[i - 1];
+            dpPlus[i] = dpPlus[i - 1];
+        }
+    }   
+    return Math.max(Math.max(...dpMinus), Math.max(...dpPlus));
+}
+
+//console.log(wiggleMaxLength([3,3,3,2,5]))
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
