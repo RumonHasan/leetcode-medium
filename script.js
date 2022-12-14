@@ -4499,7 +4499,100 @@ const wiggleMaxLength = (nums)=>{
     return Math.max(Math.max(...dpMinus), Math.max(...dpPlus));
 }
 
-//console.log(wiggleMaxLength([3,3,3,2,5]))
+//console.log(wiggleMaxLength([3,3,3,2,5]));
+
+
+// // maximum sum of the array after partitiioning and changing the partition to each max number
+// const maxSumAfterPartioning = (arr, k) => {
+//     console.log(arr, k);
+// }
+
+// console.log(maxSumAfterPartioning([1,15,7,9,2,5,10], 3))
+
+// longest increasin subsequence
+
+
+const longestIncreasingSubsequence = (nums)=>{
+    // using dp approach by default length will be one of each element since one element is also a sub
+    let dp = new Array(nums.length).fill(1);
+
+    // main iteration
+    for(let i = 1; i < nums.length; i++){
+        for(let j = 0; j < i; j++){
+            // if the end point is smaller then skip
+            if(nums[j] >= nums[i]){
+                continue;
+            }
+            // main condition to update dp
+            if(nums[j] < nums[i]){
+                let currentIncrease = dp[i];
+                // chooses the bigger out of the prefix dp sums
+                dp[i] = Math.max(currentIncrease, dp[j] + 1);
+            }
+        }
+    }
+   return Math.max(...dpArray);
+}   
+
+//console.log(longestIncreasingSubsequence([10,9,2,5,3,7,101,18]))
+
+const numLongestIncreasingSubsequence = (nums)=>{
+    console.log(nums);
+    let dpArray = new Array(nums.length).fill(1);
+    let countArray = new Array(nums.length).fill(1);
+
+    for(let i = 1; i < nums.length; i++){
+        for(let j = 0; j < i; j++){
+        
+            // check for greatest
+            if(nums[j] < nums[i]){
+                dpArray[i] = Math.max(dpArray[i], dpArray[j] + 1);
+                console.log(dpArray);
+            }
+        }
+    }
+}
+
+//console.log(numLongestIncreasingSubsequence([1,3,5,4,7]))
+
+
+const isSubsequence = (s, t)=>{
+    //console.log(s, t);
+
+    // let tIndex = 0;
+    // let index = 0;
+    // while(index < s.length){
+    //     if(tIndex === t.length){
+    //         return false
+    //     }
+    //     if(t[tIndex] === s[index]){
+    //         index++;
+    //     }
+    //     tIndex++;
+    // }
+    // return true;
+
+    // alternate approach
+    let sIndex = 0;
+    for(let i = 0; i < t.length; i++){
+        if(s[sIndex] === t[i]){
+            sIndex++;
+        }
+    }
+    if(s.length === sIndex){
+        return true;
+    }
+    return false;
+
+}
+
+//console.log(isSubsequence("abc", "hagdbgc"))
+
+
+
+
+
+
 
 
 
