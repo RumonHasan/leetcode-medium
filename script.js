@@ -4503,3 +4503,46 @@ const numMatchingSubsequence = (s, words) => {
 //     // 'yjkclbkbtl',
 //   ])
 // );
+
+const countVowelsSubstringsOptimized = (word) => {
+  let subCounter = 0;
+  let vowelHash = { a: 1, e: 1, i: 1, o: 1, u: 1 };
+  let vowelList = 'aeiou';
+  const checkVowelSub = (string) => {
+    let strArray = string.split('');
+    return (
+      strArray.includes('a') &&
+      strArray.includes('i') &&
+      strArray.includes('e') &&
+      strArray.includes('o') &&
+      strArray.includes('u')
+    );
+  };
+  // getting the substrings and checking for each alphabet
+  let collection = [];
+  for (let i = 0; i < word.length; i++) {
+    for (let j = i; j < word.length; j++) {
+      if (vowelHash[word[i]]) {
+        const slice = word.slice(i, j + 1);
+        collection.push(slice);
+      }
+    }
+  }
+  for (let i = 0; i < collection.length; i++) {
+    let check = false;
+    for (let j = 0; j < collection[i].length; j++) {
+      if (vowelList.indexOf(collection[i][j]) !== -1) {
+        check = true;
+      } else {
+        check = false;
+        break;
+      }
+    }
+    if (check && checkVowelSub(collection[i])) {
+      subCounter++;
+    }
+  }
+  return subCounter;
+};
+
+console.log(countVowelsSubstringsOptimized('cuaieuouac'));
