@@ -4545,4 +4545,18 @@ const countVowelsSubstringsOptimized = (word) => {
   return subCounter;
 };
 
-console.log(countVowelsSubstringsOptimized('cuaieuouac'));
+//console.log(countVowelsSubstringsOptimized('cuaieuouac'));
+
+// getting the range of the given target value with the first and the last index
+const searchRangeNew = (nums, target) => {
+  //console.log(nums);
+  let range = [-1, -1];
+  let index = nums.indexOf(target);
+  range[0] = index;
+  let reverse = nums.reverse();
+  let lastIndex = reverse.indexOf(target);
+  range[1] = nums.length - 1 - lastIndex;
+  return range[0] === -1 || range[1] === -1 ? [-1, -1] : range;
+};
+// answer neeed is [2,5] of target 7
+//console.log(searchRangeNew([5, 7, 7, 8, 8, 10], 7));
