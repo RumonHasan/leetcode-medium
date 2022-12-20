@@ -4580,3 +4580,21 @@ const numOfPairs = (nums, target) => {
 };
 
 // console.log(numOfPairs(['777', '7', '77', '77'], '7777'));
+
+const findDissapearNumArray = (nums) => {
+  // note range is 1 to n
+  nums.sort();
+  let collection = [];
+  let rangeSet = new Set();
+  for (let i = 0; i < nums.length; i++) {
+    rangeSet.add(nums[i]);
+  }
+  for (let i = 1; i <= nums.length; i++) {
+    if (!rangeSet.has(i)) {
+      collection.push(i);
+    }
+  }
+  return collection;
+};
+
+//console.log(findDissapearNumArray([4, 3, 2, 7, 8, 2, 3, 1]));
