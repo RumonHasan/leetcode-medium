@@ -4560,3 +4560,23 @@ const searchRangeNew = (nums, target) => {
 };
 // answer neeed is [2,5] of target 7
 //console.log(searchRangeNew([5, 7, 7, 8, 8, 10], 7));
+
+// number of pairs to make target
+const numOfPairs = (nums, target) => {
+  let pairCount = 0;
+  // gotta try to concatenate every nums from the target nested approach
+  for (let i = 0; i < nums.length; i++) {
+    let string = nums[i];
+    let rightSlice = nums.slice(i + 1, nums.length);
+    let leftSlice = nums.slice(0, i);
+    let slice = [...leftSlice, ...rightSlice];
+    for (let j = 0; j < slice.length; j++) {
+      if (slice[j] + string === target) {
+        pairCount++;
+      }
+    }
+  }
+  return pairCount;
+};
+
+// console.log(numOfPairs(['777', '7', '77', '77'], '7777'));
