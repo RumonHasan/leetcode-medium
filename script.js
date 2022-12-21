@@ -4629,3 +4629,27 @@ const findPeakElementOptimized = (nums) => {
 };
 
 //console.log(findPeakElementOptimized([1, 2]));
+
+const longestOnesOptimized = (nums, k) => {
+  let countZero = 0;
+  let start = 0;
+  let end = 0;
+  let maxCount = 0;
+  while (end < nums.length) {
+    if (nums[end] === 0) {
+      countZero++;
+    }
+    // if the countzero is bigger than reduces count till its same as k again
+    while (countZero > k) {
+      if (nums[start] === 0) {
+        countZero--;
+      }
+      start++;
+    }
+    maxCount = Math.max(maxCount, end + 1 - start);
+    end++;
+  }
+  return maxCount;
+};
+
+//console.log(longestOnesOptimized([1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0], 2));
