@@ -4580,7 +4580,6 @@ const numOfPairs = (nums, target) => {
 };
 
 // console.log(numOfPairs(['777', '7', '77', '77'], '7777'));
-
 const findDissapearNumArray = (nums) => {
   // note range is 1 to n
   nums.sort();
@@ -4598,3 +4597,35 @@ const findDissapearNumArray = (nums) => {
 };
 
 //console.log(findDissapearNumArray([4, 3, 2, 7, 8, 2, 3, 1]));
+
+// finding and collecting all the indexes
+const findPeakElementOptimized = (nums) => {
+  let index = 0;
+  let finalIndex = 0;
+  let peakCheck = false;
+  while (index < nums.length) {
+    if (nums[index] < nums[index + 1]) {
+      while (index < nums.length && nums[index + 1] > nums[index]) {
+        index++;
+      }
+      // egde case for two elements
+      if (index === nums.length - 1) {
+        return index;
+      }
+      // look for the drop
+      while (index < nums.length && nums[index + 1] <= nums[index]) {
+        peakCheck = true;
+        break;
+      }
+      if (peakCheck) {
+        finalIndex = index;
+        break;
+      }
+    } else {
+      index++;
+    }
+  }
+  return finalIndex;
+};
+
+//console.log(findPeakElementOptimized([1, 2]));
