@@ -4653,3 +4653,36 @@ const longestOnesOptimized = (nums, k) => {
 };
 
 //console.log(longestOnesOptimized([1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0], 2));
+
+// find consistent pairs with same letters despite their frequency
+// get the answers in pairs
+const similarPairs = (words) => {
+  // creating a hash set to store the letters
+  let pairCounter = 0;
+  let hashSetArray = [];
+  for (let i = 0; i < words.length; i++) {
+    let word = words[i];
+    let hashSet = new Set();
+    for (let j = 0; j < word.length; j++) {
+      hashSet.add(word[j]);
+    }
+    hashSetArray.push(hashSet);
+  }
+  // getting the similar strings
+  let array = [];
+  for (let i = 0; i < hashSetArray.length; i++) {
+    let singleSet = hashSetArray[i];
+    let singleArray = [...singleSet].sort();
+    array.push(singleArray.join(''));
+  }
+  for (let i = 0; i < array.length; i++) {
+    for (let j = i + 1; j < array.length; j++) {
+      if (array[i] == array[j]) {
+        pairCounter++;
+      }
+    }
+  }
+  return pairCounter;
+};
+
+//console.log(similarPairs(['aabb', 'ab', 'ba']));
